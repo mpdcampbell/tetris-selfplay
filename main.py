@@ -46,6 +46,9 @@ while gameOn:
             locked = board.moveOrLockPiece(testTet, "down")
             if (locked):
                 testTet = board.generatePiece()
+        if keyInput[pygame.K_CAPSLOCK]:
+            for coord in draw.getScaledCoords(testTet.blockCoords):
+                pygame.draw.rect(draw.screen, "Red", (coord[0], coord[1], draw.window.blockSize, draw.window.blockSize))
 
         pygame.display.update()
            

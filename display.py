@@ -36,13 +36,12 @@ class Draw:
         self.boardRect = pygame.Rect(2*self.window.blockSize, 0, 10*window.blockSize, window.height)
         self.heldRect = pygame.Rect(14*self.window.blockSize, self.window.blockSize, 5*self.window.blockSize, 4*self.window.blockSize)
 
-
     def createScreen(self):
         self.screen = pygame.display.set_mode((self.window.width, self.window.height))
         pygame.display.set_caption("")
 
-    def getScaledBlockCoords(self, blockCoords):
-        copyCoords = copy.deepcopy(blockCoords)
+    def getScaledCoords(self, vertexCoords):
+        copyCoords = copy.deepcopy(vertexCoords)
         for coord in copyCoords:
             coord[0] = (coord[0] + 2)*self.window.blockSize
             coord[1] = coord[1]*self.window.blockSize
@@ -57,14 +56,7 @@ class Draw:
         for y in range(int(board.height)):
             for x in range(int(board.width)):
                 if board.grid[y][x] != 0:
-                    pygame.draw.rect(self.screen, board.grid[y][x], ((x+2)*self.window.blockSize, (y-1)*self.window.blockSize, self.window.blockSize, self.window.blockSize)) 
-        #     x = 0
-        #     for element in row:
-        #         if element != 0:
-        #             
-        #         x += 1
-        #     y +=1
-
+                    pygame.draw.rect(self.screen, board.grid[y][x], ((x+2)*self.window.blockSize, (y)*self.window.blockSize, self.window.blockSize, self.window.blockSize))
     def drawHeldPiece(self, board):
         #This needs updated so the X axis offset depends on the piece shape
         #so it can be centred in the block
@@ -78,12 +70,11 @@ class Draw:
         pygame.draw.polygon(self.screen, "Black",copyCoords, 2)
 
     def drawTetromino(self, tetromino):
-        pygame.draw.polygon(self.screen, tetromino.colour, self.getScaledBlockCoords(tetromino.blockCoords))
-        pygame.draw.polygon(self.screen, "Black", self.getScaledBlockCoords(tetromino.blockCoords), 2)
+        pygame.draw.polygon(self.screen, tetromino.colour, self.getScaledCoords(tetromino.vertexCoords))
+        pygame.draw.polygon(self.screen, "Black", self.getScaledCoords(tetromino.vertexCoords), 2)
 
     def updateDisplay(self, board, tetromino):
         self.board = board
-        #print(self.board.isHeldPieceEmpty())
         self.tetromino = tetromino
         pygame.display.update()
         

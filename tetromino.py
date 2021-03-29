@@ -15,13 +15,13 @@ class Tetromino():
 
     _allShapes = {
         #Every shape is 2 element list where the first element is list of vertices and 2nd is centre position
-        "O" : [ [[0,0],[2,0],[2,2],[0,2]], [1,1] ],
-        "I" : [ [[0,0],[4,0],[4,1],[0,1]], [2,1] ],
-        "S" : [ [[1,0],[3,0],[3,1],[2,1],[2,2],[0,2],[0,1],[1,1]], [1.5,1.5] ],
-        "Z" : [ [[0,0],[2,0],[2,1],[3,1],[3,2],[1,2],[1,1],[0,1]], [1.5,1.5] ],
-        "J" : [ [[0,0],[3,0],[3,2],[2,2],[2,1],[0,1]], [1.5,0.5] ],
-        "L" : [ [[0,0],[3,0],[3,1],[1,1],[1,2],[0,2]], [1.5,0.5] ],
-        "T" : [ [[0,0],[3,0],[3,1],[2,1],[2,2],[1,2],[1,1],[0,1]], [1.5,0.5] ]
+        "O" : [ [[0,0],[2,0],[2,2],[0,2]], [[0,0],[1,0],[0,1],[1,1]], [1,1] ],
+        "I" : [ [[0,0],[4,0],[4,1],[0,1]], [[0,0],[1,0],[2,0],[3,0]], [2,1] ],
+        "S" : [ [[1,0],[3,0],[3,1],[2,1],[2,2],[0,2],[0,1],[1,1]], [[1,0],[2,0],[0,1],[1,1]], [1.5,1.5] ],
+        "Z" : [ [[0,0],[2,0],[2,1],[3,1],[3,2],[1,2],[1,1],[0,1]], [[0,0],[1,0],[1,1],[2,1]], [1.5,1.5] ],
+        "J" : [ [[0,0],[3,0],[3,2],[2,2],[2,1],[0,1]], [[0,0],[1,0],[2,0],[2,1]], [1.5,0.5] ],
+        "L" : [ [[0,0],[3,0],[3,1],[1,1],[1,2],[0,2]], [[0,0],[1,0],[2,0],[0,1]], [1.5,0.5] ],
+        "T" : [ [[0,0],[3,0],[3,1],[2,1],[2,2],[1,2],[1,1],[0,1]], [[0,0],[1,0],[2,0],[1,1]], [1.5,0.5] ]
     }
 
     def __init__(self, shape = None, rotations = 0, colour = None):
@@ -32,8 +32,9 @@ class Tetromino():
             self.shape = shape
         else:
             self.shape = random.choice(list(self._allShapes.keys()))        
-        self.blockCoords = copy.deepcopy(self._allShapes[self.shape][0])
-        self.centre = copy.copy(self._allShapes[self.shape][1])
+        self.vertexCoords = copy.deepcopy(self._allShapes[self.shape][0])
+        self.blockCoords = copy.deepcopy(self._allShapes[self.shape][1])
+        self.centre = copy.copy(self._allShapes[self.shape][2])
         if self._allColours.get(colour) is not None:
             self.colour = _allColours[colour]
         elif colour in self._allColours.values():
@@ -43,83 +44,58 @@ class Tetromino():
 
     def getMinXCoord(self):
         x = 40600
-        for coord in self.blockCoords:
+        for coord in self.vertexCoords:
             if coord[0] < x:
                 x = coord[0]
         return x
     
     def getMaxXCoord(self):
         x = 0
-        for coord in self.blockCoords:
+        for coord in self.vertexCoords:
             if coord[0] > x:
                 x = coord[0]
         return x
     
     def getMinYCoord(self):
         y = 9999
-        for coord in self.blockCoords:
+        for coord in self.vertexCoords:
             if coord[1] < y:
                 y = coord[1]
         return y
 
     def getMaxYCoord(self):
         y = 0
-        for coord in self.blockCoords:
+        for coord in self.vertexCoords:
             if coord[1] > y:
                 y = coord[1]
         return y
 
-    # def isOutOfBounds(self):
-    #     minX = self.getMinXCoord()
-    #     maxX = self.getMaxXCoord()
-    #     minY = self.getMinYCoord()
-    #     maxY = self.getMaxYCoord()
-    #     if (minX < 0) | (minY < 0) | (maxX > 10) | (maxY > 20):
-    #         return True
-    #     else:
-    #         return False
-
-    def incrementBlockCoords(self, x = 0 , y = 0):
+    def incrementCoords(self, x = 0 , y = 0):
         self.xOffset += x
         self.yOffset += y
         self.centre[0] += x
         self.centre[1] += y
+        for coord in self.vertexCoords:
+            coord[0] = coord[0] + x
+            coord[1] = coord[1] + y
         for coord in self.blockCoords:
             coord[0] = coord[0] + x
             coord[1] = coord[1] + y
 
-    # def step(self, direction):
-    #     x = y = 0
-    #     if direction == "right":
-    #         if (self.getMaxXCoord() < 10):
-    #             x = 1
-    #     elif direction == "left":
-    #         if (self.getMinXCoord() > 0):
-    #             x = -1
-    #     elif direction == "down":
-    #         if (self.getMaxYCoord() < 20):
-    #             y = 1
-    #     self.centre[0] = self.centre[0] + x
-    #     self.centre[1] = self.centre[1] + y
-    #     for coord in self.blockCoords:
-    #         coord[0] = coord[0] + x
-    #         coord[1] = coord[1] + y
-
-    # def printRGBColour(self):
-    #     print(self.colour)
-
-    def rotateBlockCoords(self, direction = None):
-        for coord in self.blockCoords:
-            x = coord[0] - self.centre[0]
-            y = coord[1] - self.centre[1]
-            if direction == "clockwise":
-                rotations = 1
-                coord[1] = x + self.centre[1]
-                coord[0] = -y + self.centre[0]
-            elif direction == "anticlockwise":
-                rotations = -1
-                coord[1] = -x + self.centre[1]
-                coord[0] = y + self.centre[0]
-        self.rotations = self.rotations + rotations
+    def rotateCoords(self, rotation = 0):
+        if (rotation*rotation == 1):
+            self.rotations += rotation
+            for coord in self.vertexCoords:
+                x = coord[0] - self.centre[0]
+                y = coord[1] - self.centre[1]
+                coord[1] = self.centre[1] + (rotation * x)
+                coord[0] = self.centre[0] - (rotation * y)
+            for coord in self.blockCoords:
+                x = coord[0] - self.centre[0]
+                y = coord[1] - self.centre[1]
+                coord[1] = self.centre[1] + (rotation * x)
+                coord[0] = self.centre[0] - (rotation * y)
+                #This line is needed to adjust so the block coord is always top left coord of "block"
+                coord[int((1 - rotation)/2)] += -1
     
     

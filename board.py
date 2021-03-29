@@ -5,7 +5,7 @@ class Board:
 
     def emptyGrid(self):
         self.grid = {}
-        for rowCount in range(self.height + 1):
+        for rowCount in range(self.height):
             gridRow = {rowCount : [0,0,0,0,0,0,0,0,0,0]}
             self.grid.update(gridRow)
 
@@ -26,12 +26,14 @@ class Board:
         copyTetromino = copy.deepcopy(tetromino)
         tetromino = copy.deepcopy(self.heldPiece)
         self.centrePiece(tetromino)
-        tetromino.incrementBlockCoords(copyTetromino.xOffset, copyTetromino.yOffset)
+        tetromino.incrementCoords(copyTetromino.xOffset, copyTetromino.yOffset)
         self.setHeldPiece(copyTetromino)
         return (tetromino)
 
     def centrePiece(self, tetromino):
         tetromino.centre[0] = tetromino.centre[0] + (self.width/2)
+        for coord in tetromino.vertexCoords:
+            coord[0] = coord[0] + (self.width/2)
         for coord in tetromino.blockCoords:
             coord[0] = coord[0] + (self.width/2)
         
@@ -51,20 +53,22 @@ class Board:
             return False
 
     def moveOrLockPiece(self, tetromino, direction):
-        origCoords = copy.deepcopy(tetromino.blockCoords)
+        x = 0
+        y = 0
         if direction == "right":
-            tetromino.incrementBlockCoords(1,0)
+            x = 1
         elif direction == "left":
-            tetromino.incrementBlockCoords(-1,0)
+            x = -1
         elif direction == "down":
-            tetromino.incrementBlockCoords(0,1)
+            y = 1
+        tetromino.incrementCoords(x,y)
         if (self.isOutOfBounds(tetromino)):
-            tetromino.blockCoords = origCoords
-            self.lockPieceOnGrid(tetromino)
-            return (True)
-        else:
-            return (False)
-#this function is broken because blockCoords is actualy the vertexCoords
+            tetromino.incrementCoords(-x, -y)
+            if (y != 0):
+                self.lockPieceOnGrid(tetromino)
+                return (True)
+        return (False)
+
     def lockPieceOnGrid(self, tetromino):
         for coord in tetromino.blockCoords:
             y = int(coord[1])
@@ -72,7 +76,10 @@ class Board:
             self.grid[y][x] = copy.copy(tetromino.colour)
     
     def rotatePiece(self, tetromino, direction = None):
-        origCoords = copy.deepcopy(tetromino.blockCoords)
-        tetromino.rotateBlockCoords(direction)
+        if direction == "clockwise":
+            rotation = 1
+        elif direction == "anticlockwise":
+            rotation = -1
+        tetromino.rotateCoords(rotation)
         if self.isOutOfBounds(tetromino):
-            tetromino.blockCoords = origCoords
+            tetromino.rotateCoords(-rotation)
