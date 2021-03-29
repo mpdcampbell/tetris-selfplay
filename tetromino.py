@@ -14,7 +14,8 @@ class Tetromino():
     }
 
     _allShapes = {
-        #Every shape is 2 element list where the first element is list of vertices and 2nd is centre position
+        #Every shape is 2 element list where the first element is list of vertices, 
+        #2nd is a list of constituent block coords and 3rd is centre position
         "O" : [ [[0,0],[2,0],[2,2],[0,2]], [[0,0],[1,0],[0,1],[1,1]], [1,1] ],
         "I" : [ [[0,0],[4,0],[4,1],[0,1]], [[0,0],[1,0],[2,0],[3,0]], [2,1] ],
         "S" : [ [[1,0],[3,0],[3,1],[2,1],[2,2],[0,2],[0,1],[1,1]], [[1,0],[2,0],[0,1],[1,1]], [1.5,1.5] ],
@@ -31,10 +32,12 @@ class Tetromino():
         if self._allShapes.get(shape) is not None:
             self.shape = shape
         else:
-            self.shape = random.choice(list(self._allShapes.keys()))        
+            self.shape = random.choice(list(self._allShapes.keys()))
+
         self.vertexCoords = copy.deepcopy(self._allShapes[self.shape][0])
         self.blockCoords = copy.deepcopy(self._allShapes[self.shape][1])
         self.centre = copy.copy(self._allShapes[self.shape][2])
+        
         if self._allColours.get(colour) is not None:
             self.colour = _allColours[colour]
         elif colour in self._allColours.values():

@@ -5,7 +5,7 @@ class Board:
 
     def emptyGrid(self):
         self.grid = {}
-        for rowCount in range(self.height):
+        for rowCount in range(self.height+1):
             gridRow = {rowCount : [0,0,0,0,0,0,0,0,0,0]}
             self.grid.update(gridRow)
 
@@ -62,12 +62,24 @@ class Board:
         elif direction == "down":
             y = 1
         tetromino.incrementCoords(x,y)
-        if (self.isOutOfBounds(tetromino)):
-            tetromino.incrementCoords(-x, -y)
-            if (y != 0):
+        if (y == 0):
+            if (self.isOutOfBounds(tetromino)):
+                tetromino.incrementCoords(-x, -y)
+                return True
+        else:
+            if (self.isOutOfBounds(tetromino) | self.isGridBlocked(tetromino)):
+                tetromino.incrementCoords(-x, -y)
                 self.lockPieceOnGrid(tetromino)
-                return (True)
+                return True
         return (False)
+
+    def isGridBlocked(self, tetromino):
+        for coord in tetromino.blockCoords:
+            y = int(coord[1])
+            x = int(coord[0])
+            if self.grid[y][x] != 0:
+                return True
+        return False
 
     def lockPieceOnGrid(self, tetromino):
         for coord in tetromino.blockCoords:

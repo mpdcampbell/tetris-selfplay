@@ -46,6 +46,7 @@ while gameOn:
             locked = board.moveOrLockPiece(testTet, "down")
             if (locked):
                 testTet = board.generatePiece()
+        #This is to help testing, push capslock to show the hidden block coords
         if keyInput[pygame.K_CAPSLOCK]:
             for coord in draw.getScaledCoords(testTet.blockCoords):
                 pygame.draw.rect(draw.screen, "Red", (coord[0], coord[1], draw.window.blockSize, draw.window.blockSize))

@@ -53,10 +53,12 @@ class Draw:
         pygame.draw.rect(self.screen, board.colour, self.heldRect, 3)
 
     def drawGrid(self, board):
+        b = self.window.blockSize
         for y in range(int(board.height)):
             for x in range(int(board.width)):
                 if board.grid[y][x] != 0:
-                    pygame.draw.rect(self.screen, board.grid[y][x], ((x+2)*self.window.blockSize, (y)*self.window.blockSize, self.window.blockSize, self.window.blockSize))
+                    pygame.draw.rect(self.screen, board.grid[y][x], ((x+2)*b, y*b, b, b))
+
     def drawHeldPiece(self, board):
         #This needs updated so the X axis offset depends on the piece shape
         #so it can be centred in the block
