@@ -5,7 +5,7 @@ from board import *
 
 gameOn = True
 window = Window()
-board = Board()
+board = Board([0, 0, 0])
 testTet = board.generatePiece()
 draw = Draw(window)
 draw.createScreen()
@@ -19,12 +19,14 @@ while gameOn:
         if event.type == pygame.QUIT: 
             gameOn = False
 
-        draw.drawBackground(board)
+        draw.screen.fill("Gray")
         draw.drawTetromino(testTet)
         draw.drawGrid(board)
+        draw.drawBackground(board)
         if not (board.isHeldPieceEmpty()):
             draw.drawHeldPiece(board)
 
+        #Listen out for all the possible user keyInputs
         keyInput = pygame.key.get_pressed()
         if keyInput[pygame.K_TAB]:
             testTet = board.generatePiece()
@@ -45,6 +47,7 @@ while gameOn:
         if keyInput[pygame.K_DOWN]:
             locked = board.moveOrLockPiece(testTet, "down")
             if (locked):
+                print("Score:", board.score)
                 testTet = board.generatePiece()
         #This is to help testing, push capslock to show the hidden block coords
         if keyInput[pygame.K_CAPSLOCK]:

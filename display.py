@@ -48,7 +48,7 @@ class Draw:
         return copyCoords
 
     def drawBackground(self, board):
-        self.screen.fill("White")
+        #self.screen.fill("Gray")
         pygame.draw.rect(self.screen, board.colour, self.boardRect, 3)
         pygame.draw.rect(self.screen, board.colour, self.heldRect, 3)
 

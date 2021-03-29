@@ -2,11 +2,15 @@ import copy
 from tetromino import *
 
 class Board:
+    _lineScores = (0, 40, 100, 300, 1200)
 
     def emptyGrid(self):
         self.grid = {}
-        for rowCount in range(self.height+1):
-            gridRow = {rowCount : [0,0,0,0,0,0,0,0,0,0]}
+        self.emptyRow = []
+        for x in range(self.width):
+            self.emptyRow.append(0)
+        for rowCount in range(self.height):
+            gridRow = {rowCount : copy.copy(self.emptyRow)}
             self.grid.update(gridRow)
 
     def __init__(self, colour = [190, 190, 190]):
@@ -14,6 +18,8 @@ class Board:
         self.width = 10
         self.height = 20
         self.heldPiece = None
+        self.score = 0
+        self.linesCleared = 0
         self.emptyGrid()
 
     def setHeldPiece(self, tetromino):
@@ -47,7 +53,7 @@ class Board:
         maxX = tetromino.getMaxXCoord()
         minY = tetromino.getMinYCoord()
         maxY = tetromino.getMaxYCoord()
-        if (minX < 0) | (minY < 0) | (maxX > self.width) | (maxY > self.height):
+        if (minX < 0) or (minY < 0) or (maxX > self.width) or (maxY > self.height):
             return True
         else:
             return False
@@ -62,16 +68,16 @@ class Board:
         elif direction == "down":
             y = 1
         tetromino.incrementCoords(x,y)
-        if (y == 0):
-            if (self.isOutOfBounds(tetromino)):
-                tetromino.incrementCoords(-x, -y)
-                return True
-        else:
-            if (self.isOutOfBounds(tetromino) | self.isGridBlocked(tetromino)):
-                tetromino.incrementCoords(-x, -y)
+
+        if (self.isOutOfBounds(tetromino) or self.isGridBlocked(tetromino)):
+            tetromino.incrementCoords(-x,-y)
+            if (y != 0):
                 self.lockPieceOnGrid(tetromino)
-                return True
-        return (False)
+                clearedRowCount = self.clearFullRows()
+                self.linesCleared += clearedRowCount
+                self.score +=self._lineScores[clearedRowCount]
+            return True
+        return False
 
     def isGridBlocked(self, tetromino):
         for coord in tetromino.blockCoords:
@@ -87,11 +93,51 @@ class Board:
             x = int(coord[0])
             self.grid[y][x] = copy.copy(tetromino.colour)
     
+    def clearFullRows(self):
+        fullRowCount = 0
+        y = self.height - 1
+        while (y > 0):
+            emptyBlocks = 0
+            for x in range(self.width):
+                if self.grid[y][x] == 0:
+                    emptyBlocks +=1
+            if emptyBlocks == self.width:
+                return fullRowCount
+            elif emptyBlocks == 0:
+                fullRowCount += 1
+                self.grid[y] = copy.copy(self.emptyRow)
+                for i in range (y, 1, -1):
+                    self.grid[i] = copy.deepcopy(self.grid[i-1])
+                y += 1
+            y-=1
+        #This would occur if none of rows are empty or filled
+        return fullRowCount
+    
+    # def getFullGridRows(self):
+    #     fullRows = []
+    #     for y in range(self.height-1, 0, -1):
+    #         emptyBlockCount = 0
+    #         for x in range(self.width):
+    #             if self.grid[y][x] == 0:
+    #                 emptyBlockCount += 1
+    #         if emptyBlockCount == self.width:
+    #             return
+    #         elif emptyBlockCount == 0:
+    #             fullRows.append(y)
+    #     return fullRows
+
+    # def clearGridRows(self, gridRows = 0):
+    #     rowCount = len(gridRows)
+    #     for y in gridRows:
+    #         self.grid[y] = copy.copy(self.emptyRow)
+    #     for y in range(min(gridRows)-1, 0, -1):
+    #         self.grid[y+rowCount] = copy.deepcopy(self.grid[y])
+         
     def rotatePiece(self, tetromino, direction = None):
         if direction == "clockwise":
             rotation = 1
         elif direction == "anticlockwise":
             rotation = -1
         tetromino.rotateCoords(rotation)
-        if self.isOutOfBounds(tetromino):
+        if (self.isOutOfBounds(tetromino) or self.isGridBlocked(tetromino)):
             tetromino.rotateCoords(-rotation)
