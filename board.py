@@ -112,26 +112,6 @@ class Board:
             y-=1
         #This would occur if none of rows are empty or filled
         return fullRowCount
-    
-    # def getFullGridRows(self):
-    #     fullRows = []
-    #     for y in range(self.height-1, 0, -1):
-    #         emptyBlockCount = 0
-    #         for x in range(self.width):
-    #             if self.grid[y][x] == 0:
-    #                 emptyBlockCount += 1
-    #         if emptyBlockCount == self.width:
-    #             return
-    #         elif emptyBlockCount == 0:
-    #             fullRows.append(y)
-    #     return fullRows
-
-    # def clearGridRows(self, gridRows = 0):
-    #     rowCount = len(gridRows)
-    #     for y in gridRows:
-    #         self.grid[y] = copy.copy(self.emptyRow)
-    #     for y in range(min(gridRows)-1, 0, -1):
-    #         self.grid[y+rowCount] = copy.deepcopy(self.grid[y])
          
     def rotatePiece(self, tetromino, direction = None):
         if direction == "clockwise":
@@ -141,3 +121,18 @@ class Board:
         tetromino.rotateCoords(rotation)
         if (self.isOutOfBounds(tetromino) or self.isGridBlocked(tetromino)):
             tetromino.rotateCoords(-rotation)
+
+    #Needs work, can't just return none or you get an error
+    def newPieceOrGameOver(self, tetromino):
+        if ((tetromino.xOffset + tetromino.yOffset) == 0):
+            print("GAME OVER")
+        else:
+            testTet = self.generatePiece()
+            return testTet
+        return
+    
+    def fastDropPiece(self, tetromino):
+        isLocked = False
+        while (not isLocked):
+            isLocked = self.moveOrLockPiece(tetromino,"down")
+            #pygame.display.update

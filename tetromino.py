@@ -46,7 +46,7 @@ class Tetromino():
             self.colour = random.choice(list(self._allColours.values()))
 
     def getMinXCoord(self):
-        x = 40600
+        x = 38400
         for coord in self.vertexCoords:
             if coord[0] < x:
                 x = coord[0]
@@ -60,7 +60,7 @@ class Tetromino():
         return x
     
     def getMinYCoord(self):
-        y = 9999
+        y = 21600
         for coord in self.vertexCoords:
             if coord[1] < y:
                 y = coord[1]
@@ -100,5 +100,3 @@ class Tetromino():
                 coord[0] = self.centre[0] - (rotation * y)
                 #This line is needed to adjust so the block coord is always top left coord of "block"
                 coord[int((1 - rotation)/2)] += -1
-    
-    
