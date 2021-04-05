@@ -15,7 +15,7 @@ timeCount = 0
 
 while not gameOver:
     
-    gameOver = board.isGameOver()
+    #gameOver = board.isGameOver()
     timeCount += clock.get_rawtime()
     clock.tick()
     draw.screen.fill("Gray")
@@ -28,7 +28,7 @@ while not gameOver:
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT: 
-            gameOn = False
+            gameOver = True
         keyInput = pygame.key.get_pressed()
         if keyInput[pygame.K_TAB]:
             testTet = board.generatePiece()
