@@ -99,19 +99,24 @@ class Draw:
         self.tetromino = tetromino
         pygame.display.update()
 
-    def drawScore(self, board):
+    def drawScores(self, board):
         fontSize = int(1.5 * self.window.blockSize)
         gameFont = pygame.font.Font("Awoof-Mono-Regular.ttf", fontSize)
         scoreNum = gameFont.render(str(board.score), True, self.fontColour)
         scoreText = gameFont.render("Score", True, self.fontColour)
         lineNum = gameFont.render(str(board.linesCleared), True, self.fontColour)
         lineText = gameFont.render("Lines", True, self.fontColour)
+        levelNum = gameFont.render(str(board.level), True, self.fontColour)
+        levelText = gameFont.render("Level", True, self.fontColour)
         scoreYPos = int(board.height*0.33)
-        lineYPos = (scoreYPos + 3)
+        lineYPos = scoreYPos + 3
+        levelYPos = lineYPos + 3
         self.screen.blit(scoreNum, (self.heldXOffset*self.window.blockSize, (scoreYPos+1)*self.window.blockSize))
         self.screen.blit(scoreText, (self.heldXOffset*self.window.blockSize, (scoreYPos)*self.window.blockSize))
         self.screen.blit(lineText, (self.heldXOffset*self.window.blockSize, lineYPos*self.window.blockSize))
         self.screen.blit(lineNum, (self.heldXOffset*self.window.blockSize, (lineYPos+1)*self.window.blockSize))
+        self.screen.blit(levelText, (self.heldXOffset*self.window.blockSize, levelYPos*self.window.blockSize))
+        self.screen.blit(levelNum, (self.heldXOffset*self.window.blockSize, (levelYPos+1)*self.window.blockSize))
 
     def drawGameOver(self, board):
         fontSize = int(2.5 * self.window.blockSize)

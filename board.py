@@ -3,6 +3,7 @@ from tetromino import *
 
 class Board:
     _lineScores = (0, 40, 100, 300, 1200)
+    _levelPoints = (0, 1, 3, 5, 8)
 
     def emptyGrid(self):
         self.grid = {}
@@ -13,13 +14,16 @@ class Board:
             gridRow = {rowCount : copy.copy(self.emptyRow)}
             self.grid.update(gridRow)
 
-    def __init__(self, colour = [190, 190, 190]):
-        self.colour = "Gray"
+    def __init__(self, colour = "Gray"):
+        self.colour = colour
         self.width = 10
         self.height = 20
         self.heldPiece = None
+        self.startInterval = 1000
         self.score = 0
         self.linesCleared = 0
+        self.level = 1
+        self.levelScore = 0 
         self.emptyGrid()
 
     def setHeldPiece(self, tetromino):
@@ -74,10 +78,22 @@ class Board:
             if (y != 0):
                 self.lockPieceOnGrid(tetromino)
                 clearedRowCount = self.clearFullRows()
-                self.linesCleared += clearedRowCount
-                self.score += self._lineScores[clearedRowCount]
+                self.updateScores(clearedRowCount)
             return True
         return False
+
+    def updateScores(self, clearedRowCount):
+        self.linesCleared += clearedRowCount
+        self.levelScore += self._levelPoints[clearedRowCount]
+        if (self.levelScore // self.level) >= 5:
+            self.level += 1
+            self.levelScore = 0
+        self.score += self._lineScores[clearedRowCount]
+
+    def getDropInterval(self):
+        scale = pow(0.8, self.level)
+        dropInterval = int(self.startInterval * scale)
+        return dropInterval
 
     def isGridBlocked(self, tetromino):
         for coord in tetromino.blockCoords:

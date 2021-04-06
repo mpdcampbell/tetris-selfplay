@@ -9,7 +9,7 @@ gameOver = False
 paused = False
 locked = False
 window = Window()
-board = Board([0, 0, 0])
+board = Board()
 tetromino = board.generatePiece()
 draw = Draw(window)
 draw.createScreen()
@@ -44,12 +44,12 @@ while isOpen:
     draw.drawBackground(board)
     draw.drawGridPieces(board)
     draw.drawTetromino(tetromino)
-    draw.drawScore(board)
+    draw.drawScores(board)
     if not (board.isHeldPieceEmpty()):
         draw.drawHeldPiece(board)
 
     #Main Game loop
-    if (timeCount >= 500):
+    if (timeCount >= board.getDropInterval()):
         timeCount = 0
         locked = board.moveOrLockPiece(tetromino, "down")
         if (locked):
@@ -62,12 +62,6 @@ while isOpen:
         if event.type == pygame.QUIT: 
             isOpen = False
         keyInput = pygame.key.get_pressed()
-        if keyInput[pygame.K_LCTRL] or keyInput[pygame.K_RCTRL]:
-            if (board.isHeldPieceEmpty()):
-                board.setHeldPiece(tetromino)
-                tetromino = board.generatePiece()
-            else:
-                tetromino = board.swapWithHeldPiece(tetromino)
         if keyInput[pygame.K_LSHIFT] or keyInput[pygame.K_RSHIFT]:
             board.rotatePiece(tetromino, "anticlockwise")
         if keyInput[pygame.K_p]:
@@ -79,10 +73,18 @@ while isOpen:
         if keyInput[pygame.K_LEFT]:
             board.moveOrLockPiece(tetromino, "left")
         if keyInput[pygame.K_DOWN]:
+            board.moveOrLockPiece(tetromino, "down")
+        if keyInput[pygame.K_CAPSLOCK]:
             board.fastDropPiece(tetromino)
             tetromino = board.newPieceOrGameOver(tetromino)
             if tetromino == None:
                 gameOver = True
+        if keyInput[pygame.K_LCTRL] or keyInput[pygame.K_RCTRL]:
+            if (board.isHeldPieceEmpty()):
+                board.setHeldPiece(tetromino)
+                tetromino = board.generatePiece()
+            else:
+                tetromino = board.swapWithHeldPiece(tetromino)
 
     #Game over screen loop
     while gameOver:
