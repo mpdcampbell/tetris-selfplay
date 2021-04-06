@@ -101,7 +101,7 @@ class Draw:
 
     def drawScores(self, board):
         fontSize = int(1.5 * self.window.blockSize)
-        gameFont = pygame.font.Font("Awoof-Mono-Regular.ttf", fontSize)
+        gameFont = pygame.font.Font("Fairfax.ttf", fontSize)
         scoreNum = gameFont.render(str(board.score), True, self.fontColour)
         scoreText = gameFont.render("Score", True, self.fontColour)
         lineNum = gameFont.render(str(board.linesCleared), True, self.fontColour)
@@ -120,13 +120,13 @@ class Draw:
 
     def drawGameOver(self, board):
         fontSize = int(2.5 * self.window.blockSize)
-        gameFont = pygame.font.Font("Awoof-Mono-Regular.ttf", fontSize)
+        gameFont = pygame.font.Font("Fairfax.ttf", fontSize)
         gameOverText = gameFont.render("GAME OVER", True, self.fontColour)
         self.screen.blit(gameOverText, (self.window.blockSize, ((board.height/2)-1)*self.window.blockSize))
 
     def drawStartScreen(self, board):
         fontSize = int(2.5 * self.window.blockSize)
-        gameFont = pygame.font.Font("Awoof-Mono-Regular.ttf", fontSize)
+        gameFont = pygame.font.Font("Fairfax.ttf", fontSize)
         startText = gameFont.render("PRESS SPACE TO", True, self.fontColour)
         startText2 = gameFont.render("START", True, self.fontColour)
         self.screen.blit(startText, (self.window.blockSize, ((board.height/2)-1)*self.window.blockSize))
@@ -134,6 +134,6 @@ class Draw:
 
     def drawPauseScreen(self, board):
         fontSize = int(3 * self.window.blockSize)
-        gameFont = pygame.font.Font("Awoof-Mono-Regular.ttf", fontSize)
+        gameFont = pygame.font.Font("Fairfax.ttf", fontSize)
         pauseText = gameFont.render("PAUSED", True, self.fontColour)
         self.screen.blit(pauseText, (5*self.window.blockSize, ((board.height/2)-1)*self.window.blockSize))
