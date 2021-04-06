@@ -62,13 +62,13 @@ while isOpen:
         if event.type == pygame.QUIT: 
             isOpen = False
         keyInput = pygame.key.get_pressed()
-        if keyInput[pygame.K_LCTRL]:
+        if keyInput[pygame.K_LCTRL] or keyInput[pygame.K_RCTRL]:
             if (board.isHeldPieceEmpty()):
                 board.setHeldPiece(tetromino)
                 tetromino = board.generatePiece()
             else:
                 tetromino = board.swapWithHeldPiece(tetromino)
-        if keyInput[pygame.K_LSHIFT]:
+        if keyInput[pygame.K_LSHIFT] or keyInput[pygame.K_RSHIFT]:
             board.rotatePiece(tetromino, "anticlockwise")
         if keyInput[pygame.K_UP]:
             board.rotatePiece(tetromino, "clockwise")

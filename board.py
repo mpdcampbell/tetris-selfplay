@@ -123,7 +123,7 @@ class Board:
             tetromino.rotateCoords(-rotation)
 
     def newPieceOrGameOver(self, tetromino):
-        if ((tetromino.xOffset + tetromino.yOffset) == 0):
+        if (tetromino.xOffset == 0) and (tetromino.yOffset == 0):
             return None
         else:
             tetromino = self.generatePiece()
