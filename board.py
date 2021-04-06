@@ -17,7 +17,7 @@ class Board:
     def __init__(self, colour = "Gray"):
         self.colour = colour
         self.width = 10
-        self.height = 20
+        self.height = 21
         self.heldPiece = None
         self.startInterval = 1000
         self.score = 0

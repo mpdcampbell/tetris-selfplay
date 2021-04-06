@@ -12,7 +12,7 @@ class Window:
         else:
             self.blockSize = displayWidth // 30
         self.width = 20 * self.blockSize
-        self.height = 20 * self.blockSize
+        self.height = 21 * self.blockSize
 
     def __init__(self, blockSize = None):
         if (blockSize is not None):
@@ -22,8 +22,8 @@ class Window:
                     self.blockSize = 6
                 else:
                     self.blockSize = blockSize
-                self.width = 21 * self.blockSize
-                self.height = 20 * self.blockSize
+                self.width = 20 * self.blockSize
+                self.height = 21 * self.blockSize
             else:
                 print("blockSize value provided is not an int, using default value")
         else:
@@ -33,11 +33,11 @@ class Draw:
 
     def __init__(self, window = Window()):
         self.window = window
-        self.boardXOffset = 2
-        self.heldXOffset = 10 + (self.boardXOffset*2)
-        self.heldYOffset = 1
         self.boardWidth = 10 
         self.heldWidth = 4
+        self.boardXOffset = 2
+        self.heldXOffset = self.boardWidth + (self.boardXOffset*2)
+        self.heldYOffset = 1
         self.boardOutline = (self.window.blockSize // 15) if (self.window.blockSize >= 15) else 1
         self.pieceOutline = (self.window.blockSize // 15) if (self.window.blockSize >= 15) else 1
         self.boardRect = pygame.Rect(self.boardXOffset*self.window.blockSize, 0, (self.boardWidth*self.window.blockSize) + self.boardOutline, self.window.height)
