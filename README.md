@@ -1,6 +1,6 @@
 # tetris-selfplay
-The aim is to create a self playing game Tetris. Currently the master branch contains a user playable game of Tetris with no self playing functionality.
-The pygame module is used for both displaying to screen and user input, and text is displayed in the font [FairFax](https://github.com/kreativekorp/open-relay/tree/master/Fairfax).
+The aim is to create a self playing game of Tetris. Currently the master branch contains a user playable game of Tetris with no self playing functionality.
+The pygame module is used for both displaying to screen and user input, and text is displayed in the font [FairFax](https://github.com/kreativekorp/open-relay/tree/master/Fairfax).
 
 ## **Example Gameplay**
 <p align="Left">
