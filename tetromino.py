@@ -37,7 +37,6 @@ class Tetromino():
         self.vertexCoords = copy.deepcopy(self._allShapes[self.shape][0])
         self.blockCoords = copy.deepcopy(self._allShapes[self.shape][1])
         self.centre = copy.copy(self._allShapes[self.shape][2])
-        
         if self._allColours.get(colour) is not None:
             self.colour = _allColours[colour]
         elif colour in self._allColours.values():

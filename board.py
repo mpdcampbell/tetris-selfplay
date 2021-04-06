@@ -37,11 +37,11 @@ class Board:
         return (tetromino)
 
     def centrePiece(self, tetromino):
-        tetromino.centre[0] = tetromino.centre[0] + (self.width/2)
+        tetromino.centre[0] = tetromino.centre[0] + (self.width/2) - 1
         for coord in tetromino.vertexCoords:
-            coord[0] = coord[0] + (self.width/2)
+            coord[0] = coord[0] + (self.width/2) - 1
         for coord in tetromino.blockCoords:
-            coord[0] = coord[0] + (self.width/2)
+            coord[0] = coord[0] + (self.width/2) - 1 
         
     def generatePiece(self):
         tetromino = Tetromino()
@@ -122,17 +122,14 @@ class Board:
         if (self.isOutOfBounds(tetromino) or self.isGridBlocked(tetromino)):
             tetromino.rotateCoords(-rotation)
 
-    #Needs work, can't just return none or you get an error
     def newPieceOrGameOver(self, tetromino):
         if ((tetromino.xOffset + tetromino.yOffset) == 0):
-            print("GAME OVER")
+            return None
         else:
-            testTet = self.generatePiece()
-            return testTet
-        return
+            tetromino = self.generatePiece()
+            return tetromino
     
     def fastDropPiece(self, tetromino):
         isLocked = False
         while (not isLocked):
             isLocked = self.moveOrLockPiece(tetromino,"down")
-            #pygame.display.update
