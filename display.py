@@ -92,10 +92,10 @@ class Draw:
     def drawScore(self, board):
         fontSize = int(1.5 * self.window.blockSize)
         gameFont = pygame.font.Font("Awoof-Mono-Regular.ttf", fontSize)
-        scoreNum = gameFont.render(str(board.score), True, (0, 0, 0))
-        scoreText = gameFont.render("Score", True, (0, 0, 0))
-        lineNum = gameFont.render(str(board.linesCleared), True, (0, 0, 0))
-        lineText = gameFont.render("Lines", True, (0, 0, 0))
+        scoreNum = gameFont.render(str(board.score), True, "Black")
+        scoreText = gameFont.render("Score", True, "Black")
+        lineNum = gameFont.render(str(board.linesCleared), True, "Black")
+        lineText = gameFont.render("Lines", True, "Black")
         scoreYPos = int(board.height*0.33)
         lineYPos = (scoreYPos + 3)
         self.screen.blit(scoreNum, (self.heldXOffset*self.window.blockSize, (scoreYPos+1)*self.window.blockSize))
@@ -106,19 +106,19 @@ class Draw:
     def drawGameOver(self, board):
         fontSize = int(2.5 * self.window.blockSize)
         gameFont = pygame.font.Font("Awoof-Mono-Regular.ttf", fontSize)
-        gameOverText = gameFont.render("GAME OVER", True, (0, 0, 0))
+        gameOverText = gameFont.render("GAME OVER", True, "Black")
         self.screen.blit(gameOverText, (self.window.blockSize, ((board.height/2)-1)*self.window.blockSize))
 
     def drawStartScreen(self, board):
         fontSize = int(2.5 * self.window.blockSize)
         gameFont = pygame.font.Font("Awoof-Mono-Regular.ttf", fontSize)
-        startText = gameFont.render("PRESS SPACE TO", True, (0, 0, 0))
-        startText2 = gameFont.render("START", True, (0, 0, 0))
+        startText = gameFont.render("PRESS SPACE TO", True, "Black")
+        startText2 = gameFont.render("START", True, "Black")
         self.screen.blit(startText, (self.window.blockSize, ((board.height/2)-1)*self.window.blockSize))
         self.screen.blit(startText2, (7*self.window.blockSize, ((board.height/2)+1)*self.window.blockSize))
 
     def drawPauseScreen(self, board):
         fontSize = int(3 * self.window.blockSize)
         gameFont = pygame.font.Font("Awoof-Mono-Regular.ttf", fontSize)
-        pauseText = gameFont.render("PAUSED", True, (0, 0, 0))
+        pauseText = gameFont.render("PAUSED", True, "Black")
         self.screen.blit(pauseText, (5*self.window.blockSize, ((board.height/2)-1)*self.window.blockSize))

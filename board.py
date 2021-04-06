@@ -39,9 +39,9 @@ class Board:
     def centrePiece(self, tetromino):
         tetromino.centre[0] = tetromino.centre[0] + (self.width/2) - 1
         for coord in tetromino.vertexCoords:
-            coord[0] = coord[0] + (self.width/2) - 1
+            coord[0] += (self.width/2) - 1
         for coord in tetromino.blockCoords:
-            coord[0] = coord[0] + (self.width/2) - 1 
+            coord[0] += (self.width/2) - 1 
         
     def generatePiece(self):
         tetromino = Tetromino()
@@ -75,7 +75,7 @@ class Board:
                 self.lockPieceOnGrid(tetromino)
                 clearedRowCount = self.clearFullRows()
                 self.linesCleared += clearedRowCount
-                self.score +=self._lineScores[clearedRowCount]
+                self.score += self._lineScores[clearedRowCount]
             return True
         return False
 
