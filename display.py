@@ -38,10 +38,11 @@ class Draw:
         self.heldYOffset = 1
         self.boardWidth = 10 
         self.heldWidth = 4
-        self.boardRect = pygame.Rect(self.boardXOffset*self.window.blockSize, 0, self.boardWidth*self.window.blockSize, window.height*self.window.blockSize)
+        self.boardOutline = (self.window.blockSize // 15) if (self.window.blockSize >= 15) else 1
+        self.pieceOutline = (self.window.blockSize // 15) if (self.window.blockSize >= 15) else 1
+        self.boardRect = pygame.Rect(self.boardXOffset*self.window.blockSize, 0, (self.boardWidth*self.window.blockSize) + self.boardOutline, self.window.height)
         self.heldRect = pygame.Rect(self.heldXOffset*self.window.blockSize, self.heldYOffset*self.window.blockSize, self.heldWidth*self.window.blockSize, self.heldWidth*self.window.blockSize)
-        self.boardOutline = (self.window.blockSize // 10) if (self.window.blockSize >= 10) else 1
-        self.pieceOutline = (self.window.blockSize // 15) if (self.window.blockSize >=15) else 1
+        self.fontColour = (125, 125, 125)
 
     def createScreen(self):
         self.screen = pygame.display.set_mode((self.window.width, self.window.height))
@@ -55,10 +56,20 @@ class Draw:
         return copyCoords
 
     def drawBackground(self, board):
-        pygame.draw.rect(self.screen, board.colour, self.boardRect, self.boardOutline)
+        self.drawBoard(board)
+        self.drawHeldSquare(board)
+
+    def drawHeldSquare(self, board):
         pygame.draw.rect(self.screen, board.colour, self.heldRect, self.boardOutline)
 
-    def drawGrid(self, board):
+    def drawBoard(self, board):
+        pygame.draw.rect(self.screen, board.colour, self.boardRect, 0)
+        for x in range(self.boardXOffset*self.window.blockSize, (self.boardWidth + self.boardXOffset)*self.window.blockSize, self.window.blockSize):
+            for y in range(0, self.window.height, self.window.blockSize):
+                square = pygame.Rect(x + self.boardOutline, y + self.boardOutline, self.window.blockSize - self.boardOutline, self.window.blockSize - self.boardOutline)
+                pygame.draw.rect(self.screen, "WHITE", square, 0)
+
+    def drawGridPieces(self, board):
         blockSize = self.window.blockSize
         for y in range(int(board.height)):
             for x in range(int(board.width)):
@@ -92,10 +103,10 @@ class Draw:
     def drawScore(self, board):
         fontSize = int(1.5 * self.window.blockSize)
         gameFont = pygame.font.Font("Awoof-Mono-Regular.ttf", fontSize)
-        scoreNum = gameFont.render(str(board.score), True, "Black")
-        scoreText = gameFont.render("Score", True, "Black")
-        lineNum = gameFont.render(str(board.linesCleared), True, "Black")
-        lineText = gameFont.render("Lines", True, "Black")
+        scoreNum = gameFont.render(str(board.score), True, self.fontColour)
+        scoreText = gameFont.render("Score", True, self.fontColour)
+        lineNum = gameFont.render(str(board.linesCleared), True, self.fontColour)
+        lineText = gameFont.render("Lines", True, self.fontColour)
         scoreYPos = int(board.height*0.33)
         lineYPos = (scoreYPos + 3)
         self.screen.blit(scoreNum, (self.heldXOffset*self.window.blockSize, (scoreYPos+1)*self.window.blockSize))
@@ -106,19 +117,19 @@ class Draw:
     def drawGameOver(self, board):
         fontSize = int(2.5 * self.window.blockSize)
         gameFont = pygame.font.Font("Awoof-Mono-Regular.ttf", fontSize)
-        gameOverText = gameFont.render("GAME OVER", True, "Black")
+        gameOverText = gameFont.render("GAME OVER", True, self.fontColour)
         self.screen.blit(gameOverText, (self.window.blockSize, ((board.height/2)-1)*self.window.blockSize))
 
     def drawStartScreen(self, board):
         fontSize = int(2.5 * self.window.blockSize)
         gameFont = pygame.font.Font("Awoof-Mono-Regular.ttf", fontSize)
-        startText = gameFont.render("PRESS SPACE TO", True, "Black")
-        startText2 = gameFont.render("START", True, "Black")
+        startText = gameFont.render("PRESS SPACE TO", True, self.fontColour)
+        startText2 = gameFont.render("START", True, self.fontColour)
         self.screen.blit(startText, (self.window.blockSize, ((board.height/2)-1)*self.window.blockSize))
         self.screen.blit(startText2, (7*self.window.blockSize, ((board.height/2)+1)*self.window.blockSize))
 
     def drawPauseScreen(self, board):
         fontSize = int(3 * self.window.blockSize)
         gameFont = pygame.font.Font("Awoof-Mono-Regular.ttf", fontSize)
-        pauseText = gameFont.render("PAUSED", True, "Black")
+        pauseText = gameFont.render("PAUSED", True, self.fontColour)
         self.screen.blit(pauseText, (5*self.window.blockSize, ((board.height/2)-1)*self.window.blockSize))

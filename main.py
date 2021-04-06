@@ -18,7 +18,7 @@ timeCount = 0
 
 while isOpen:
     #Clear screen
-    draw.screen.fill("Gray")
+    draw.screen.fill("White")
     
     #Pause / Start screen loop
     while paused or (not started):
@@ -41,9 +41,9 @@ while isOpen:
     #Draw game elements to screen
     timeCount += clock.get_rawtime()
     clock.tick()
-    draw.drawGrid(board)
-    draw.drawTetromino(tetromino)
     draw.drawBackground(board)
+    draw.drawGridPieces(board)
+    draw.drawTetromino(tetromino)
     draw.drawScore(board)
     if not (board.isHeldPieceEmpty()):
         draw.drawHeldPiece(board)

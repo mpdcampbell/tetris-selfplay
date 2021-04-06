@@ -14,7 +14,7 @@ class Board:
             self.grid.update(gridRow)
 
     def __init__(self, colour = [190, 190, 190]):
-        self.colour = colour
+        self.colour = "Gray"
         self.width = 10
         self.height = 20
         self.heldPiece = None
