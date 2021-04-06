@@ -52,10 +52,10 @@ while isOpen:
     if (timeCount >= 500):
         timeCount = 0
         locked = board.moveOrLockPiece(tetromino, "down")
-    if (locked):
-        tetromino = board.newPieceOrGameOver(tetromino)
-        if tetromino == None:
-            gameOver = True
+        if (locked):
+            tetromino = board.newPieceOrGameOver(tetromino)
+            if tetromino == None:
+                gameOver = True
 
     #Check for user input
     for event in pygame.event.get():
