@@ -90,7 +90,6 @@ class Draw:
         tempPiece.incrementCoords(xOffset, yOffset)
         self.drawTetromino(tempPiece)
         
-
     def drawTetromino(self, tetromino):
         pygame.draw.polygon(self.screen, tetromino.colour, self.getScaledCoords(tetromino.vertexCoords))
         pygame.draw.polygon(self.screen, "Black", self.getScaledCoords(tetromino.vertexCoords), self.pieceOutline)

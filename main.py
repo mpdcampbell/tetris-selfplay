@@ -70,6 +70,8 @@ while isOpen:
                 tetromino = board.swapWithHeldPiece(tetromino)
         if keyInput[pygame.K_LSHIFT] or keyInput[pygame.K_RSHIFT]:
             board.rotatePiece(tetromino, "anticlockwise")
+        if keyInput[pygame.K_p]:
+            paused = True
         if keyInput[pygame.K_UP]:
             board.rotatePiece(tetromino, "clockwise")
         if keyInput[pygame.K_RIGHT]:
@@ -81,8 +83,6 @@ while isOpen:
             tetromino = board.newPieceOrGameOver(tetromino)
             if tetromino == None:
                 gameOver = True
-        if keyInput[pygame.K_p]:
-            paused = True
 
     #Game over screen loop
     while gameOver:
