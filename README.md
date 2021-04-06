@@ -5,7 +5,7 @@ Written in python, using the pygame module, and text is displayed in the font [F
 
 ## **Example Gameplay**
 <p align="Left">
-<img align="center" src="/examples/Gameplay.gif" alt="My awful gameplay" title="My awful gameplay" width="500"><br \>
+<img align="center" src="/examples/gameplay.gif" alt="My awful gameplay" title="My awful gameplay" width="500"><br \>
 </p>
 
 ## **Controls** 
