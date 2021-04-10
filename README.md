@@ -19,6 +19,7 @@ Written in python, using the pygame module, and text is displayed in the font [F
 | CTRL          | Hold / Swap Piece    |
 | Caps Lock     | Hard Drop            |
 | P             | Pause / Unpause      |
+| Space         | Start / Restart      |
 
  ## How to Run
   - Instructions here

@@ -4,37 +4,50 @@ from display import *
 from board import *
 
 isOpen = True
-started = False
+newGame = True
 gameOver = False
 paused = False
 locked = False
 window = Window()
-board = Board()
-tetromino = board.generatePiece()
+# board = Board()
+# tetromino = board.generatePiece()
 draw = Draw(window)
 draw.createScreen()
 clock = pygame.time.Clock()
-timeCount = 0
+# clock = pygame.time.Clock()
+# timeCount = 0
 
 while isOpen:
     #Clear screen
     draw.screen.fill("White")
     
+    #newGame reset board
+    if newGame:
+        board = Board()
+        tetromino = board.generatePiece()
+        timeCount = 0
+        draw.drawStartScreen(board)
+    #newGame screen loop
+        while newGame:
+            pygame.display.update()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    newGame = False
+                    isOpen = False
+                keyInput = pygame.key.get_pressed()
+                if keyInput[pygame.K_SPACE]:
+                    newGame = False
+
     #Pause / Start screen loop
-    while paused or (not started):
+    while paused:
         if paused:
             draw.drawPauseScreen(board)
-        else:
-            draw.drawStartScreen(board)
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                gameStarted = True
                 paused = False 
                 isOpen = False
             keyInput = pygame.key.get_pressed()
-            if keyInput[pygame.K_SPACE]:
-                started = True
             if keyInput[pygame.K_p]:
                 paused = False
 
@@ -62,10 +75,12 @@ while isOpen:
         if event.type == pygame.QUIT: 
             isOpen = False
         keyInput = pygame.key.get_pressed()
-        if keyInput[pygame.K_LSHIFT] or keyInput[pygame.K_RSHIFT]:
-            board.rotatePiece(tetromino, "anticlockwise")
         if keyInput[pygame.K_p]:
             paused = True
+        if keyInput[pygame.K_SPACE]:
+            newGame = True
+        if keyInput[pygame.K_LSHIFT] or keyInput[pygame.K_RSHIFT]:
+            board.rotatePiece(tetromino, "anticlockwise")
         if keyInput[pygame.K_UP]:
             board.rotatePiece(tetromino, "clockwise")
         if keyInput[pygame.K_RIGHT]:
@@ -95,6 +110,10 @@ while isOpen:
             if event.type == pygame.QUIT: 
                 gameOver = False
                 isOpen = False
+            keyInput = pygame.key.get_pressed()
+            if keyInput[pygame.K_SPACE]:
+                newGame = True
+                gameOver = False
 
     pygame.display.update()    
            
