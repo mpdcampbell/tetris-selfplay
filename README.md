@@ -18,7 +18,7 @@ Written in python, using the pygame module, and text is displayed in the font [F
 | Shift         | Rotate Anticlockwise |
 | CTRL          | Hold / Swap Piece    |
 | Caps Lock     | Hard Drop            |
-| p             | Pause / Unpause      |
+| P             | Pause / Unpause      |
 
  ## How to Run
   - Instructions here
