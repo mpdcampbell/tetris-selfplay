@@ -15,7 +15,7 @@ class Tetromino():
         #Every shape is 2 element list where the first element is list of vertices, 
         #2nd is a list of constituent block coords and 3rd is the centre of rotation
         "O" : [ [[0,0],[2,0],[2,2],[0,2]], [[0,0],[1,0],[0,1],[1,1]], [1,1] ],
-        "I" : [ [[0,0],[4,0],[4,1],[0,1]], [[0,0],[1,0],[2,0],[3,0]], [2,1] ],
+        "I" : [ [[0,0],[4,0],[4,1],[0,1]], [[0,0],[1,0],[2,0],[3,0]], [2,1] ], 
         "S" : [ [[1,0],[3,0],[3,1],[2,1],[2,2],[0,2],[0,1],[1,1]], [[1,0],[2,0],[0,1],[1,1]], [1.5,1.5] ],
         "Z" : [ [[0,0],[2,0],[2,1],[3,1],[3,2],[1,2],[1,1],[0,1]], [[0,0],[1,0],[1,1],[2,1]], [1.5,1.5] ],
         "J" : [ [[0,0],[3,0],[3,2],[2,2],[2,1],[0,1]], [[0,0],[1,0],[2,0],[2,1]], [1.5,0.5] ],
@@ -36,7 +36,7 @@ class Tetromino():
         self.blockCoords = copy.deepcopy(self._allShapes[self.shape][1])
         self.centre = copy.copy(self._allShapes[self.shape][2])
         if self._allColours.get(colour) is not None:
-            self.colour = _allColours[colour]
+            self.colour = self._allColours[colour]
         elif colour in self._allColours.values():
             self.colour = colour
         else:
@@ -83,19 +83,19 @@ class Tetromino():
             coord[1] += y
 
     def rotateCoords(self, rotation = 0):
-        if (rotation*rotation == 1):
+        if rotation != 0:
             self.rotations += rotation
-            for coord in self.vertexCoords:
-                x = coord[0] - self.centre[0]
-                y = coord[1] - self.centre[1]
-                coord[1] = self.centre[1] + (rotation * x)
-                coord[0] = self.centre[0] - (rotation * y)
-            for coord in self.blockCoords:
-                x = coord[0] - self.centre[0]
-                y = coord[1] - self.centre[1]
-                coord[1] = self.centre[1] + (rotation * x)
-                coord[0] = self.centre[0] - (rotation * y)
-                #This line is needed to adjust so the block coord is always top left coord of "block"
-                coord[int((1 - rotation)/2)] += -1
-        else:
-            print("rotation value must be negative or positive one")
+            direction = rotation / abs(rotation)
+            for i in range(abs(rotation)):
+                for coord in self.vertexCoords:
+                    x = coord[0] - self.centre[0]
+                    y = coord[1] - self.centre[1]
+                    coord[1] = self.centre[1] + (direction * x)
+                    coord[0] = self.centre[0] - (direction * y)
+                for coord in self.blockCoords:
+                    x = coord[0] - self.centre[0]
+                    y = coord[1] - self.centre[1]
+                    coord[1] = self.centre[1] + (direction * x)
+                    coord[0] = self.centre[0] - (direction * y)
+                     #This line is needed to adjust so the block coord is always top left coord of "block"
+                    coord[int((1 - direction)/2)] += -1

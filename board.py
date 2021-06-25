@@ -1,5 +1,7 @@
 import pygame, copy
 from tetromino import *
+from direction import *
+from rotation import *
 
 class Board:
     _lineScores = (0, 40, 100, 300, 1200)
@@ -25,6 +27,7 @@ class Board:
         self.level = 1
         self.levelScore = 0 
         self.emptyGrid()
+        self.holeCount = None
 
     def setHeldPiece(self, tetromino):
         self.heldPiece = Tetromino(tetromino.shape, tetromino.rotations, tetromino.colour)
@@ -62,24 +65,20 @@ class Board:
         else:
             return False
 
-    def moveOrLockPiece(self, tetromino, direction):
-        x = 0
-        y = 0
-        if direction == "right":
-            x = 1
-        elif direction == "left":
-            x = -1
-        elif direction == "down":
-            y = 1
-        tetromino.incrementCoords(x,y)
-
-        if (self.isOutOfBounds(tetromino) or self.isGridBlocked(tetromino)):
-            tetromino.incrementCoords(-x,-y)
-            if (y != 0):
-                self.lockPieceOnGrid(tetromino)
-                clearedRowCount = self.clearFullRows()
-                self.updateScores(clearedRowCount)
-            return True
+    def moveOrLockPiece(self, tetromino, direction, count = 1):
+        x = direction.value[0]
+        y = direction.value[1]
+        for i in range(count):
+            #this line is because of fast drop when already at bottom, needs better fix
+            if not (self.isOutOfBounds(tetromino) or self.isGridBlocked(tetromino)):
+                tetromino.incrementCoords(x, y)
+            if (self.isOutOfBounds(tetromino) or self.isGridBlocked(tetromino)):
+                tetromino.incrementCoords(-x,-y)
+                if (y != 0):
+                    self.lockPieceOnGrid(tetromino)
+                    clearedRowCount = self.clearFullRows()
+                    self.updateScores(clearedRowCount)
+                return True
         return False
 
     def updateScores(self, clearedRowCount):
@@ -91,7 +90,8 @@ class Board:
         self.score += self._lineScores[clearedRowCount]
 
     def getDropInterval(self):
-        scale = pow(0.8, self.level)
+       #scale = pow(0.8, self.level)
+        scale = pow(0.8, 1)
         dropInterval = int(self.startInterval * scale)
         return dropInterval
 
@@ -129,14 +129,12 @@ class Board:
         #This would occur if none of rows are empty or filled
         return fullRowCount
          
-    def rotatePiece(self, tetromino, direction = None):
-        if direction == "clockwise":
-            rotation = 1
-        elif direction == "anticlockwise":
-            rotation = -1
-        tetromino.rotateCoords(rotation)
-        if (self.isOutOfBounds(tetromino) or self.isGridBlocked(tetromino)):
-            tetromino.rotateCoords(-rotation)
+    def rotatePiece(self, tetromino, rotation = None, count = 1):
+        for i in range(count):
+            tetromino.rotateCoords(rotation)
+            if (self.isOutOfBounds(tetromino) or self.isGridBlocked(tetromino)):
+                tetromino.rotateCoords(-rotation)
+                break
 
     def newPieceOrGameOver(self, tetromino):
         if (tetromino.xOffset == 0) and (tetromino.yOffset == 0):
@@ -148,4 +146,4 @@ class Board:
     def fastDropPiece(self, tetromino):
         isLocked = False
         while (not isLocked):
-            isLocked = self.moveOrLockPiece(tetromino,"down")
+            isLocked = self.moveOrLockPiece(tetromino,Direction.DOWN)
