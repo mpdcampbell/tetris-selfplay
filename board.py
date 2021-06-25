@@ -70,9 +70,10 @@ class Board:
         y = direction.value[1]
         for i in range(count):
             #this line is because of fast drop when already at bottom, needs better fix
-            if not (self.isOutOfBounds(tetromino) or self.isGridBlocked(tetromino)):
-                tetromino.incrementCoords(x, y)
+            #if not (self.isOutOfBounds(tetromino) or self.isGridBlocked(tetromino)):
+            tetromino.incrementCoords(x, y)
             if (self.isOutOfBounds(tetromino) or self.isGridBlocked(tetromino)):
+
                 tetromino.incrementCoords(-x,-y)
                 if (y != 0):
                     self.lockPieceOnGrid(tetromino)
@@ -90,8 +91,8 @@ class Board:
         self.score += self._lineScores[clearedRowCount]
 
     def getDropInterval(self):
-       #scale = pow(0.8, self.level)
-        scale = pow(0.8, 1)
+        scale = pow(0.8, self.level)
+        #scale = pow(0.8, 1)
         dropInterval = int(self.startInterval * scale)
         return dropInterval
 

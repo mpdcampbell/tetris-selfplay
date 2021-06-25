@@ -12,7 +12,7 @@ class Tetromino():
     }
 
     _allShapes = {
-        #Every shape is 2 element list where the first element is list of vertices, 
+        #Every shape is 3 element list where the first element is list of vertices, 
         #2nd is a list of constituent block coords and 3rd is the centre of rotation
         "O" : [ [[0,0],[2,0],[2,2],[0,2]], [[0,0],[1,0],[0,1],[1,1]], [1,1] ],
         "I" : [ [[0,0],[4,0],[4,1],[0,1]], [[0,0],[1,0],[2,0],[3,0]], [2,1] ], 
