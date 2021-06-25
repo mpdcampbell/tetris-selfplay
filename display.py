@@ -134,7 +134,7 @@ class Draw:
         sText = gameFont.render("S", True, self.fontColour)
         startText = gameFont.render("TO PLAY", True, self.fontColour)
         self.screen.blit(pressText, (2*self.window.blockSize, ((board.height/2)-3)*self.window.blockSize))
-        self.screen.blit(bText, (4*self.window.blockSize, ((board.height/2)-1)*self.window.blockSize))
+        self.screen.blit(bText, (4.5*self.window.blockSize, ((board.height/2)-1)*self.window.blockSize))
         self.screen.blit(botText, (self.window.blockSize, ((board.height/2)+1)*self.window.blockSize))
         self.screen.blit(pressText, (12*self.window.blockSize, ((board.height/2)-3)*self.window.blockSize))
         self.screen.blit(sText, (14.5*self.window.blockSize, ((board.height/2)-1)*self.window.blockSize))

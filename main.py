@@ -99,6 +99,7 @@ while isOpen:
                 tetromino = board.newPieceOrGameOver(tetromino)
                 if tetromino == None:
                     gameOver = True
+                    break
         draw.refreshScreen(board, tetromino)
 
         #Check for user input
