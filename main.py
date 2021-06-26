@@ -63,6 +63,7 @@ while isOpen:
                 paused = False
  
     gameFlags = [newGame, gameOver, paused, (not isOpen)]
+
     #gamePlay Loop
     while (not any(gameFlags)):
         
@@ -81,10 +82,15 @@ while isOpen:
                 if tetromino == None:
                     gameOver = True
                     break
-            position = pcPlayer.getPosition(board, tetromino)
+            draw.refreshScreen(board, tetromino)
+            (swapPiece, position) = pcPlayer.choosePieceAndPosition(board, tetromino)
+            if (swapPiece):
+                tetromino = board.swapWithHeldPiece(tetromino)
+            draw.refreshScreen(board, tetromino)
             pcPlayer.makeMove(board, tetromino, position)
             draw.refreshScreen(board, tetromino)
             tetromino = board.newPieceOrGameOver(tetromino)
+            draw.refreshScreen(board, tetromino)
             if tetromino == None:
                 gameOver = True
                 break
@@ -128,7 +134,7 @@ while isOpen:
                         if tetromino == None:
                             gameOver = True
                 if keyInput[pygame.K_CAPSLOCK]:
-                    board.fastDropPiece(tetromino)
+                    board.dropAndLockPiece(tetromino)
                     tetromino = board.newPieceOrGameOver(tetromino)
                     if tetromino == None:
                         gameOver = True

@@ -69,17 +69,14 @@ class Board:
         x = direction.value[0]
         y = direction.value[1]
         for i in range(count):
-            #this line is because of fast drop when already at bottom, needs better fix
-            #if not (self.isOutOfBounds(tetromino) or self.isGridBlocked(tetromino)):
             tetromino.incrementCoords(x, y)
             if (self.isOutOfBounds(tetromino) or self.isGridBlocked(tetromino)):
-
                 tetromino.incrementCoords(-x,-y)
-                if (y != 0):
+                if (y > 0):
                     self.lockPieceOnGrid(tetromino)
                     clearedRowCount = self.clearFullRows()
                     self.updateScores(clearedRowCount)
-                return True
+                    return True
         return False
 
     def updateScores(self, clearedRowCount):
@@ -144,7 +141,16 @@ class Board:
             tetromino = self.generatePiece()
             return tetromino
     
-    def fastDropPiece(self, tetromino):
+    def dropAndLockPiece(self, tetromino):
         isLocked = False
         while (not isLocked):
             isLocked = self.moveOrLockPiece(tetromino,Direction.DOWN)
+
+    def dropPieceWithoutLock(self, tetromino):
+            while not ((self.isOutOfBounds(tetromino) or self.isGridBlocked(tetromino))):
+                tetromino.incrementCoords(0, 1)
+            tetromino.incrementCoords(0, -1)
+    
+    def moveLeftAndLockPiece(self, tetromino, count):
+        self.moveOrLockPiece(tetromino, Direction.LEFT, count)
+        self.dropAndLockPiece(tetromino)

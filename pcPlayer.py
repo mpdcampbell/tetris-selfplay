@@ -34,18 +34,19 @@ class PcPlayer:
                 copyBoard.rotatePiece(copyTet, Rotation.CLOCKWISE, rotationCount)
                 self.moveFarLeft(board, copyTet)
                 copyBoard.moveOrLockPiece(copyTet, Direction.RIGHT, xPos)
-                copyBoard.fastDropPiece(copyTet)
+                copyBoard.dropPieceWithoutLock(copyTet)
+                copyBoard.moveLeftAndLockPiece(copyTet, 2)
                 score = self.getPositionScore(board, copyTet)
                 self.positionScores[rotationCount][xPos] = copy.copy(score)
                 copyBoard = copy.deepcopy(board)
                 copyTet = copy.deepcopy(tetromino)
         
-    def getPosition(self, board, tetromino):
+    def choosePieceAndPosition(self, board, tetromino):
+        swapPiece = False
         #Score the active tetromino piece
         self.scoreAllPositions(board, tetromino)
         tetMin = self.getMinScoreAndPosition()
         self.clearPositionScores(board)
-
         #Move a copy of the heldpiece into position and score
         heldPiece = copy.deepcopy(board.heldPiece)
         board.centrePiece(heldPiece)
@@ -53,13 +54,13 @@ class PcPlayer:
         self.scoreAllPositions(board, heldPiece)
         heldPieceMin = self.getMinScoreAndPosition()
         self.clearPositionScores(board)
-        
+        #Compare
         if (heldPieceMin[0] < tetMin[0]):
             position = (heldPieceMin[1], heldPieceMin[2])
-            board.swapWithHeldPiece(tetromino)
+            swapPiece = True
         else:
             position = (tetMin[1], tetMin[2])
-        return (position)
+        return (swapPiece, position)
 
     def getMinScoreAndPosition(self): 
         minScore = self.positionScores[0][0]
@@ -84,7 +85,6 @@ class PcPlayer:
 
     def getHeightScore(self, board, tetromino):
         positionHeight = board.height - tetromino.getMinYCoord()
-        #print("Position Height:", positionHeight)
         heightScore = (positionHeight / board.height) * self.heightWeight
         return heightScore
 
@@ -119,7 +119,9 @@ class PcPlayer:
         board.rotatePiece(tetromino, Rotation.CLOCKWISE, rotationCount)
         self.moveFarLeft(board, tetromino)
         board.moveOrLockPiece(tetromino, Direction.RIGHT, xPos)
-        board.fastDropPiece(tetromino)
+        board.dropPieceWithoutLock(tetromino)
+        board.moveLeftAndLockPiece(tetromino, 2)
+        #board.dropAndLockPiece(tetromino)
 
 
 
