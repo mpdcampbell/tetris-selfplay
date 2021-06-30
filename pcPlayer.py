@@ -14,9 +14,11 @@ class PcPlayer:
             dictRow = {rotationCount : copy.copy(self.emptyRow)}
             self.positionScores.update(dictRow)
 
-    def __init__(self, board, holeWeight = 3, heightWeight = 7):
+    def __init__(self, board, holeWeight = 3, heightWeight = 7, columnWeight = 3):
         self.holeWeight = holeWeight
         self.heightWeight = heightWeight
+        self.columnWeight = columnWeight
+        self.columnHeightLimit = 3
         self.holeStandard = 10
         self.clearPositionScores(board)
 
@@ -26,7 +28,8 @@ class PcPlayer:
         tetromino.incrementCoords(1)
     
     def scoreAllPositions(self, board, tetromino):
-        board.holeCount = self.getHoleCount(board.grid)
+        board.holeCount = self.getHoleAndColumnCount(board.grid)[0]
+        board.columnCount = self.getHoleAndColumnCount(board.grid)[1]
         copyTet = copy.deepcopy(tetromino)
         copyBoard = copy.deepcopy(board)
         for rotationCount in range(0, 4):
@@ -69,18 +72,16 @@ class PcPlayer:
         minScoreXPos = 0
         for rotation in self.positionScores.keys():
             for xPos in range(width):
-                if (self.positionScores[rotation][xPos] == 0):
-                        return (rotation, xPos)
-                elif (self.positionScores[rotation][xPos] < minScore):
+                if (self.positionScores[rotation][xPos] < minScore):
                         minScore = self.positionScores[rotation][xPos]
                         minScoreRotation = rotation
                         minScoreXPos = xPos
         return (minScore, minScoreRotation, minScoreXPos)
 
     def getPositionScore(self, board, tetromino):
-        holeScore = self.getHoleScore(board, tetromino)
+        (holeScore, columnScore) = self.getHoleAndColumnScore(board, tetromino)
         heightScore = self.getHeightScore(board, tetromino)
-        positionScore = holeScore + heightScore
+        positionScore = holeScore + heightScore + columnScore
         return positionScore
 
     def getHeightScore(self, board, tetromino):
@@ -88,21 +89,24 @@ class PcPlayer:
         heightScore = (positionHeight / board.height) * self.heightWeight
         return heightScore
 
-    def getHoleScore(self, board, tetromino):
+    def getHoleAndColumnScore(self, board, tetromino):
         #This can probably be a shallow copy?
         grid = copy.deepcopy(board.grid)
         for coord in tetromino.blockCoords:
             y = int(coord[1])
             x = int(coord[0])
             grid[y][x] = 1
-        newHoleCount = self.getHoleCount(grid)
+        (newHoleCount, newColumnCount) = self.getHoleAndColumnCount(grid)
         holeScore = ((newHoleCount - board.holeCount)) * self.holeWeight
-        return holeScore
+        columnScore = ((newColumnCount - board.columnCount)) * self.columnWeight
+        return (holeScore, columnScore)
 
-    def getHoleCount(self, grid):
+    def getHoleAndColumnCount(self, grid):
         gridHeight = len(grid.keys())
         gridWidth = len(grid[0])
         holeCount = 0
+        columnCount = 0
+        columnList = [None] * gridWidth
         for x in range(gridWidth):
             emptyCount = 0
             for y in range(gridHeight-1, 0, -1):
@@ -111,7 +115,15 @@ class PcPlayer:
                 else:
                     holeCount += emptyCount
                     emptyCount = 0
-        return holeCount
+            columnList[x] = emptyCount
+        if columnList[0] >= (columnList[1] + self.columnHeightLimit):
+            columnCount += 1
+        if columnList[gridWidth-1] >= (columnList[gridWidth-2]+self.columnHeightLimit):
+            columnCount += 1
+        for i in range(1, gridWidth-2, 1):
+            if ((columnList[i] >= (columnList[i-1] + self.columnHeightLimit)) and (columnList[i] >= (columnList[i+1] + self.columnHeightLimit))):
+                columnCount += 1          
+        return (holeCount, columnCount)
 
     def makeMove(self, board, tetromino, position):
         rotationCount = position[0]
@@ -121,7 +133,6 @@ class PcPlayer:
         board.moveOrLockPiece(tetromino, Direction.RIGHT, xPos)
         board.dropPieceWithoutLock(tetromino)
         board.moveLeftAndLockPiece(tetromino, 2)
-        #board.dropAndLockPiece(tetromino)
 
 
 
