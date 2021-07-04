@@ -37,7 +37,7 @@ class Draw:
         self.heldWidth = 4
         self.boardXOffset = 2
         self.heldXOffset = self.boardWidth + (self.boardXOffset*2)
-        self.heldYOffset = 1
+        self.heldYOffset = 1.25
         self.boardOutline = (self.window.blockSize // 15) if (self.window.blockSize >= 15) else 1
         self.pieceOutline = (self.window.blockSize // 15) if (self.window.blockSize >= 15) else 1
         self.boardRect = pygame.Rect(self.boardXOffset*self.window.blockSize, 0, (self.boardWidth*self.window.blockSize) + self.boardOutline, self.window.height)
@@ -90,7 +90,15 @@ class Draw:
         yOffset = self.heldYOffset + (self.heldWidth/2) + centreCorrection - tempPiece.centre[1]
         tempPiece.incrementCoords(xOffset, yOffset)
         self.drawTetromino(tempPiece)
-        
+
+    def drawHeldPieceText(self, board):
+        fontSize = int(1.5 * self.window.blockSize)
+        gameFont = pygame.font.Font(self.fontPath, fontSize)
+        heldText = gameFont.render("Held", True, self.fontColour)
+        heldYPos = int(board.height)
+        self.screen.blit(heldText, (self.heldXOffset*self.window.blockSize, -0.5))
+
+
     def drawTetromino(self, tetromino):
         pygame.draw.polygon(self.screen, tetromino.colour, self.getScaledCoords(tetromino.vertexCoords))
         pygame.draw.polygon(self.screen, "Black", self.getScaledCoords(tetromino.vertexCoords), self.pieceOutline)
@@ -134,12 +142,12 @@ class Draw:
         sText = gameFont.render("S", True, self.fontColour)
         startText = gameFont.render("TO PLAY", True, self.fontColour)
         self.screen.blit(pressText, (2*self.window.blockSize, ((board.height/2)-3)*self.window.blockSize))
-        self.screen.blit(bText, (4.5*self.window.blockSize, ((board.height/2)-1)*self.window.blockSize))
+        self.screen.blit(bText, (4*self.window.blockSize, ((board.height/2)-1)*self.window.blockSize))
         self.screen.blit(botText, (self.window.blockSize, ((board.height/2)+1)*self.window.blockSize))
         self.screen.blit(pressText, (12*self.window.blockSize, ((board.height/2)-3)*self.window.blockSize))
-        self.screen.blit(sText, (14.5*self.window.blockSize, ((board.height/2)-1)*self.window.blockSize))
+        self.screen.blit(sText, (14*self.window.blockSize, ((board.height/2)-1)*self.window.blockSize))
         self.screen.blit(startText, (11*self.window.blockSize, ((board.height/2)+1)*self.window.blockSize))
-        pygame.draw.line(self.screen, self.fontColour, (10*self.window.blockSize, self.window.blockSize), (10*self.window.blockSize, 20*self.window.blockSize), 6)
+        pygame.draw.line(self.screen, self.fontColour, (10*self.window.blockSize, self.window.blockSize), (10*self.window.blockSize, 20*self.window.blockSize), self.boardOutline)
 
     def drawPauseScreen(self, board):
         fontSize = int(3 * self.window.blockSize)
@@ -152,6 +160,7 @@ class Draw:
         self.drawBackground(board)
         self.drawGridPieces(board)
         self.drawTetromino(tetromino)
+        self.drawHeldPieceText(board)
         self.drawScores(board)
         if not (board.isHeldPieceEmpty()): 
             self.drawHeldPiece(board)

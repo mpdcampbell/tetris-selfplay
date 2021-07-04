@@ -44,11 +44,11 @@ class Board:
         return (tetromino)
 
     def centrePiece(self, tetromino):
-        tetromino.centre[0] = tetromino.centre[0] + (self.width/2) - 1
+        tetromino.centre[0] = tetromino.centre[0] + (self.width/2) - 2
         for coord in tetromino.vertexCoords:
-            coord[0] += (self.width/2) - 1
+            coord[0] += (self.width/2) - 2
         for coord in tetromino.blockCoords:
-            coord[0] += (self.width/2) - 1 
+            coord[0] += (self.width/2) - 2 
         
     def generatePiece(self):
         if (len(self.pieceList) == 0):
