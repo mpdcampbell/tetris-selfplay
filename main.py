@@ -72,25 +72,24 @@ while isOpen:
         #Draw game elements to screen
         draw.refreshScreen(board, tetromino)
     
-        #pcPlayer code test
+        #pcPlayer code
         if (selfPlay):
             if (board.isHeldPieceEmpty()):
                 board.setHeldPiece(tetromino)
             tetromino = board.generatePiece()
             draw.refreshScreen(board, tetromino)
             locked = board.moveOrLockPiece(tetromino, Direction.DOWN)
+            draw.refreshScreen(board, tetromino)
             if (locked):
                 tetromino = board.newPieceOrGameOver(tetromino)
                 if tetromino == None:
                     gameOver = True
                     break
-            draw.refreshScreen(board, tetromino)
             (swapPiece, position) = pcPlayer.choosePieceAndPosition(board, tetromino)
             if (swapPiece):
                 tetromino = board.swapWithHeldPiece(tetromino)
             draw.refreshScreen(board, tetromino)
-            pcPlayer.makeMove(board, tetromino, position)
-            draw.refreshScreen(board, tetromino)
+            pcPlayer.makeMove(board, tetromino, position, draw)
             tetromino = board.newPieceOrGameOver(tetromino)
             draw.refreshScreen(board, tetromino)
             if tetromino == None:
@@ -108,7 +107,7 @@ while isOpen:
                 if tetromino == None:
                     gameOver = True
                     break
-        draw.refreshScreen(board, tetromino)
+            draw.refreshScreen(board, tetromino)
 
         #Check for user input
         for event in pygame.event.get():

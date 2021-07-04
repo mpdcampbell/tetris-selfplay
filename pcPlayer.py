@@ -124,11 +124,15 @@ class PcPlayer:
                 columnCount += 1          
         return (holeCount, columnCount)
 
-    def makeMove(self, board, tetromino, position):
+    def makeMove(self, board, tetromino, position, draw):
         rotationCount = position[0]
         xPos = position[1]
         board.rotatePiece(tetromino, Rotation.CLOCKWISE, rotationCount)
+        draw.refreshScreen(board, tetromino)
         self.moveFarLeft(board, tetromino)
         board.moveOrLockPiece(tetromino, Direction.RIGHT, xPos)
+        draw.refreshScreen(board, tetromino)
         board.dropPieceWithoutLock(tetromino)
+        draw.refreshScreen(board, tetromino)
         board.moveLeftAndLockPiece(tetromino, 2)
+        draw.refreshScreen(board, tetromino)

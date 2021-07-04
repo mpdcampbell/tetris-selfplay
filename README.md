@@ -1,6 +1,6 @@
 # tetris-selfplay
-The aim is to create a self playing tetris game.<br/>
-Currently the master branch contains a user playable game with no self playing functionality.<br/>
+A self playing tetris game. <br/>
+User can choose between watching the bot play, or playing a game themselves<br/>
 Written in python, uses the pygame module, and text is displayed in the font [FairFax](https://github.com/kreativekorp/open-relay/tree/master/Fairfax).
 
 ## **Example Gameplay**
