@@ -14,7 +14,7 @@ class PcPlayer:
             dictRow = {rotationCount : copy.copy(self.emptyRow)}
             self.positionScores.update(dictRow)
 
-    def __init__(self, board, holeWeight = 3, heightWeight = 7, columnWeight = 3):
+    def __init__(self, board, holeWeight = 3, heightWeight = 7, columnWeight = 4):
         self.holeWeight = holeWeight
         self.heightWeight = heightWeight
         self.columnWeight = columnWeight
@@ -133,8 +133,3 @@ class PcPlayer:
         board.moveOrLockPiece(tetromino, Direction.RIGHT, xPos)
         board.dropPieceWithoutLock(tetromino)
         board.moveLeftAndLockPiece(tetromino, 2)
-
-
-
-            
-

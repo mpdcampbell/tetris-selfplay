@@ -1,4 +1,4 @@
-import pygame, copy
+import pygame, copy, random
 from tetromino import *
 from direction import *
 from rotation import *
@@ -28,6 +28,7 @@ class Board:
         self.levelScore = 0 
         self.emptyGrid()
         self.holeCount = None
+        self.pieceList = []
 
     def setHeldPiece(self, tetromino):
         self.heldPiece = Tetromino(tetromino.shape, tetromino.rotations, tetromino.colour)
@@ -51,7 +52,10 @@ class Board:
             coord[0] += (self.width/2) - 1 
         
     def generatePiece(self):
-        tetromino = Tetromino()
+        if (len(self.pieceList) == 0):
+            self.pieceList = list(Tetromino._allShapes.keys())
+            random.shuffle(self.pieceList)
+        tetromino = Tetromino(self.pieceList.pop())
         self.centrePiece(tetromino)
         return (tetromino)
 
@@ -81,15 +85,13 @@ class Board:
 
     def updateScores(self, clearedRowCount):
         self.linesCleared += clearedRowCount
-        self.levelScore += self._levelPoints[clearedRowCount]
-        if (self.levelScore // self.level) >= 5:
-            self.level += 1
-            self.levelScore = 0
+        if (self.linesCleared // self.level) >= 10:
+            if (self.level < 15):
+                self.level += 1
         self.score += self._lineScores[clearedRowCount]
 
     def getDropInterval(self):
         scale = pow(0.8, self.level)
-        #scale = pow(0.8, 1)
         dropInterval = int(self.startInterval * scale)
         return dropInterval
 
