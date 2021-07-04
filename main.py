@@ -1,4 +1,4 @@
-import pygame, copy
+import pygame
 from tetromino import *
 from display import *
 from board import *

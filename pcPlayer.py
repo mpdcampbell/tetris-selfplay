@@ -1,4 +1,4 @@
-import pygame, copy
+import copy
 from tetromino import *
 from board import *
 from direction import *
@@ -90,7 +90,6 @@ class PcPlayer:
         return heightScore
 
     def getHoleAndColumnScore(self, board, tetromino):
-        #This can probably be a shallow copy?
         grid = copy.deepcopy(board.grid)
         for coord in tetromino.blockCoords:
             y = int(coord[1])

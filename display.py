@@ -47,6 +47,8 @@ class Draw:
 
     def createScreen(self):
         self.screen = pygame.display.set_mode((self.window.width, self.window.height))
+        windowIcon = pygame.image.load("windowIcon.png")
+        pygame.display.set_icon(windowIcon)
         pygame.display.set_caption("")
 
     def getScaledCoords(self, vertexCoords):
@@ -147,7 +149,7 @@ class Draw:
         self.screen.blit(pressText, (12*self.window.blockSize, ((board.height/2)-3)*self.window.blockSize))
         self.screen.blit(sText, (14*self.window.blockSize, ((board.height/2)-1)*self.window.blockSize))
         self.screen.blit(startText, (11*self.window.blockSize, ((board.height/2)+1)*self.window.blockSize))
-        pygame.draw.line(self.screen, self.fontColour, (10*self.window.blockSize, self.window.blockSize), (10*self.window.blockSize, 20*self.window.blockSize), self.boardOutline)
+        pygame.draw.line(self.screen, self.fontColour, (10*self.window.blockSize, self.window.blockSize), (10*self.window.blockSize, 20*self.window.blockSize), self.boardOutline*2)
 
     def drawPauseScreen(self, board):
         fontSize = int(3 * self.window.blockSize)
