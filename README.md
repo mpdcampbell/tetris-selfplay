@@ -20,8 +20,6 @@ Written in python, uses the pygame module, and text is displayed in the font [Fa
 | ENTER         | Hard Drop            |
 | ESC           | Pause / Unpause      |
 | N             | New Game             |
-| B             | Start Bot            |
-| P             | Start Player game    |
 
  ## How to Run
   - Instructions here

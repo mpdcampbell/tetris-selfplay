@@ -12,7 +12,6 @@ newGame = True
 gameOver = False
 paused = False
 selfPlay = False
-
 locked = False
 
 #Create game window and clock
@@ -61,6 +60,9 @@ while isOpen:
             keyInput = pygame.key.get_pressed()
             if keyInput[pygame.K_ESCAPE]:
                 paused = False
+            if keyInput[pygame.K_n]:
+                    newGame = True
+                    paused = False
  
     gameFlags = [newGame, gameOver, paused, (not isOpen)]
 

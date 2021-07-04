@@ -150,11 +150,34 @@ class Draw:
         self.screen.blit(startText, (11*self.window.blockSize, ((board.height/2)+1)*self.window.blockSize))
         pygame.draw.line(self.screen, self.fontColour, (10*self.window.blockSize, self.window.blockSize), (10*self.window.blockSize, 20*self.window.blockSize), self.boardOutline*2)
 
+    def drawControls(self, board):
+        fontSize = int(self.window.blockSize)
+        gameFont = pygame.font.Font(self.fontPath, fontSize)
+        newText = gameFont.render("N:             New Game", True, self.fontColour)
+        escText = gameFont.render("ESC:           Unpause", True, self.fontColour)
+        leftText = gameFont.render("Left Arrow:    Move Left", True, self.fontColour)
+        rightText = gameFont.render("Right Arrow:   Move Right", True, self.fontColour)
+        downText = gameFont.render("Down Arrow:    Move Down", True, self.fontColour)
+        upText = gameFont.render("Up Arrow:      Rotate Clockwise", True, self.fontColour)
+        ctrlText = gameFont.render("CTRL:          Rotate AntiClockwise", True, self.fontColour)
+        shiftText = gameFont.render("SHIFT:         Hold / Swap Piece", True, self.fontColour)
+        enterText = gameFont.render("ENTER:         Hard Drop", True, self.fontColour)
+        self.screen.blit(newText, (self.window.blockSize, (5*self.window.blockSize)))
+        self.screen.blit(escText, (self.window.blockSize, (6*self.window.blockSize)))
+        self.screen.blit(leftText, (self.window.blockSize, (7*self.window.blockSize)))
+        self.screen.blit(rightText, (self.window.blockSize, (8*self.window.blockSize)))
+        self.screen.blit(downText, (self.window.blockSize, (9*self.window.blockSize)))
+        self.screen.blit(upText, (self.window.blockSize, (10*self.window.blockSize)))
+        self.screen.blit(ctrlText, (self.window.blockSize, (11*self.window.blockSize)))
+        self.screen.blit(shiftText, (self.window.blockSize, (12*self.window.blockSize)))
+        self.screen.blit(enterText, (self.window.blockSize, (13*self.window.blockSize)))
+
     def drawPauseScreen(self, board):
         fontSize = int(3 * self.window.blockSize)
         gameFont = pygame.font.Font(self.fontPath, fontSize)
         pauseText = gameFont.render("PAUSED", True, self.fontColour)
-        self.screen.blit(pauseText, (5*self.window.blockSize, ((board.height/2)-1)*self.window.blockSize))
+        self.screen.blit(pauseText, (5.5*self.window.blockSize, (self.window.blockSize)))
+        self.drawControls(board)
 
     def refreshScreen(self, board, tetromino):
         self.screen.fill("White")
