@@ -4,8 +4,7 @@ from direction import *
 from rotation import *
 
 class Board:
-    _lineScores = (0, 40, 100, 300, 1200)
-    _levelPoints = (0, 1, 3, 5, 8)
+    _lineScores = (0, 1, 3, 5, 8)
 
     def emptyGrid(self):
         self.grid = {}
@@ -85,10 +84,9 @@ class Board:
 
     def updateScores(self, clearedRowCount):
         self.linesCleared += clearedRowCount
-        if (self.linesCleared // self.level) >= 10:
-            if (self.level < 15):
-                self.level += 1
-        self.score += self._lineScores[clearedRowCount]
+        self.score += (self._lineScores[clearedRowCount] * self.level)
+        if (self.level < 15):
+            self.level = (self.linesCleared // 10) + 1
 
     def getDropInterval(self):
         scale = pow(0.8, self.level)
