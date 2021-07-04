@@ -43,7 +43,7 @@ while isOpen:
                     newGame = False
                     isOpen = False
                 keyInput = pygame.key.get_pressed()
-                if keyInput[pygame.K_s]:
+                if keyInput[pygame.K_p]:
                     newGame = False
                     selfPlay = False
                 if keyInput[pygame.K_b]:
@@ -59,7 +59,7 @@ while isOpen:
                 paused = False 
                 isOpen = False
             keyInput = pygame.key.get_pressed()
-            if keyInput[pygame.K_p]:
+            if keyInput[pygame.K_ESCAPE]:
                 paused = False
  
     gameFlags = [newGame, gameOver, paused, (not isOpen)]
@@ -113,13 +113,13 @@ while isOpen:
             if event.type == pygame.QUIT: 
                 isOpen = False
             keyInput = pygame.key.get_pressed()
-            if keyInput[pygame.K_p]:
+            if keyInput[pygame.K_ESCAPE]:
                 paused = True
-            if keyInput[pygame.K_SPACE]:
+            if keyInput[pygame.K_n]:
                 newGame = True
             #Game controls only if not bot
             if (not selfPlay):
-                if keyInput[pygame.K_LSHIFT] or keyInput[pygame.K_RSHIFT]:
+                if keyInput[pygame.K_LCTRL] or keyInput[pygame.K_RCTRL]:
                     board.rotatePiece(tetromino, Rotation.ANTICLOCKWISE)
                 if keyInput[pygame.K_UP]:
                     board.rotatePiece(tetromino, Rotation.CLOCKWISE)
@@ -133,12 +133,12 @@ while isOpen:
                         tetromino = board.newPieceOrGameOver(tetromino)
                         if tetromino == None:
                             gameOver = True
-                if keyInput[pygame.K_CAPSLOCK]:
+                if keyInput[pygame.K_RETURN]:
                     board.dropAndLockPiece(tetromino)
                     tetromino = board.newPieceOrGameOver(tetromino)
                     if tetromino == None:
                         gameOver = True
-                if keyInput[pygame.K_LCTRL] or keyInput[pygame.K_RCTRL]:
+                if keyInput[pygame.K_LSHIFT] or keyInput[pygame.K_RSHIFT]:
                     if (board.isHeldPieceEmpty()):
                         board.setHeldPiece(tetromino)
                         tetromino = board.generatePiece()

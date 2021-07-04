@@ -97,8 +97,7 @@ class Draw:
         fontSize = int(1.5 * self.window.blockSize)
         gameFont = pygame.font.Font(self.fontPath, fontSize)
         heldText = gameFont.render("Held", True, self.fontColour)
-        heldYPos = int(board.height)
-        self.screen.blit(heldText, (self.heldXOffset*self.window.blockSize, -0.5))
+        self.screen.blit(heldText, (self.heldXOffset*self.window.blockSize, 0))
 
 
     def drawTetromino(self, tetromino):
@@ -141,7 +140,7 @@ class Draw:
         pressText = gameFont.render("PRESS", True, self.fontColour)
         bText = gameFont.render("B", True, self.fontColour)
         botText = gameFont.render("FOR BOT", True, self.fontColour)
-        sText = gameFont.render("S", True, self.fontColour)
+        sText = gameFont.render("P", True, self.fontColour)
         startText = gameFont.render("TO PLAY", True, self.fontColour)
         self.screen.blit(pressText, (2*self.window.blockSize, ((board.height/2)-3)*self.window.blockSize))
         self.screen.blit(bText, (4*self.window.blockSize, ((board.height/2)-1)*self.window.blockSize))

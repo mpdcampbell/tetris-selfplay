@@ -15,11 +15,13 @@ Written in python, uses the pygame module, and text is displayed in the font [Fa
 | Right Arrow   | Move Right           |
 | Down Arrow    | Move Down            |
 | Up Arrow      | Rotate Clockwise     |
-| Shift         | Rotate Anticlockwise |
-| CTRL          | Hold / Swap Piece    |
-| Caps Lock     | Hard Drop            |
-| P             | Pause / Unpause      |
-| Space         | Start / Restart      |
+| CTRL          | Rotate Anticlockwise |
+| SHIFT         | Hold / Swap Piece    |
+| ENTER         | Hard Drop            |
+| ESC           | Pause / Unpause      |
+| N             | New Game             |
+| B             | Start Bot            |
+| P             | Start Player game    |
 
  ## How to Run
   - Instructions here
