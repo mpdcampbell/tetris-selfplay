@@ -131,8 +131,6 @@ class PcPlayer:
         draw.refreshScreen(board, tetromino)
         self.moveFarLeft(board, tetromino)
         board.moveOrLockPiece(tetromino, Direction.RIGHT, xPos)
-        draw.refreshScreen(board, tetromino)
         board.dropPieceWithoutLock(tetromino)
-        draw.refreshScreen(board, tetromino)
         board.moveLeftAndLockPiece(tetromino, 2)
         draw.refreshScreen(board, tetromino)

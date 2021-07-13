@@ -51,7 +51,7 @@ while isOpen:
 
     #Pause / Start screen loop
     while paused:
-        draw.drawPauseScreen(board)
+        draw.drawPauseScreen()
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

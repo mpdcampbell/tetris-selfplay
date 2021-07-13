@@ -1,4 +1,4 @@
-import pygame, copy, random
+import copy, random
 from tetromino import *
 from direction import *
 from rotation import *

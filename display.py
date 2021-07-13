@@ -49,7 +49,7 @@ class Draw:
         self.screen = pygame.display.set_mode((self.window.width, self.window.height))
         windowIcon = pygame.image.load("windowIcon.png")
         pygame.display.set_icon(windowIcon)
-        pygame.display.set_caption("")
+        pygame.display.set_caption("tetris-selfplay")
 
     def getScaledCoords(self, vertexCoords):
         copyCoords = copy.deepcopy(vertexCoords)
@@ -93,7 +93,7 @@ class Draw:
         tempPiece.incrementCoords(xOffset, yOffset)
         self.drawTetromino(tempPiece)
 
-    def drawHeldPieceText(self, board):
+    def drawHeldPieceText(self):
         fontSize = int(1.5 * self.window.blockSize)
         gameFont = pygame.font.Font(self.fontPath, fontSize)
         heldText = gameFont.render("Held", True, self.fontColour)
@@ -150,7 +150,7 @@ class Draw:
         self.screen.blit(startText, (11*self.window.blockSize, ((board.height/2)+1)*self.window.blockSize))
         pygame.draw.line(self.screen, self.fontColour, (10*self.window.blockSize, self.window.blockSize), (10*self.window.blockSize, 20*self.window.blockSize), self.boardOutline*2)
 
-    def drawControls(self, board):
+    def drawControls(self):
         fontSize = int(self.window.blockSize)
         gameFont = pygame.font.Font(self.fontPath, fontSize)
         newText = gameFont.render("N:             New Game", True, self.fontColour)
@@ -172,19 +172,19 @@ class Draw:
         self.screen.blit(shiftText, (self.window.blockSize, (12*self.window.blockSize)))
         self.screen.blit(enterText, (self.window.blockSize, (13*self.window.blockSize)))
 
-    def drawPauseScreen(self, board):
+    def drawPauseScreen(self):
         fontSize = int(3 * self.window.blockSize)
         gameFont = pygame.font.Font(self.fontPath, fontSize)
         pauseText = gameFont.render("PAUSED", True, self.fontColour)
         self.screen.blit(pauseText, (5.5*self.window.blockSize, (self.window.blockSize)))
-        self.drawControls(board)
+        self.drawControls()
 
     def refreshScreen(self, board, tetromino):
         self.screen.fill("White")
         self.drawBackground(board)
         self.drawGridPieces(board)
         self.drawTetromino(tetromino)
-        self.drawHeldPieceText(board)
+        self.drawHeldPieceText()
         self.drawScores(board)
         if not (board.isHeldPieceEmpty()): 
             self.drawHeldPiece(board)
