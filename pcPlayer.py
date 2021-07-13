@@ -14,7 +14,7 @@ class PcPlayer:
             dictRow = {rotationCount : copy.copy(self.emptyRow)}
             self.positionScores.update(dictRow)
 
-    def __init__(self, board, holeWeight = 3, heightWeight = 7, columnWeight = 4):
+    def __init__(self, board, holeWeight = 3, heightWeight = 7, columnWeight = 6):
         self.holeWeight = holeWeight
         self.heightWeight = heightWeight
         self.columnWeight = columnWeight

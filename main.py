@@ -157,7 +157,7 @@ while isOpen:
                 gameOver = False
                 isOpen = False
             keyInput = pygame.key.get_pressed()
-            if keyInput[pygame.K_SPACE]:
+            if keyInput[pygame.K_n]:
                 newGame = True
                 gameOver = False
            
