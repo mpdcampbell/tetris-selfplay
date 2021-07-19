@@ -15,7 +15,7 @@ selfPlay = False
 locked = False
 
 #Create game window and clock
-window = Window()
+window = Window(6)
 draw = Draw(window)
 draw.createScreen()
 clock = pygame.time.Clock()
@@ -61,8 +61,8 @@ while isOpen:
             if keyInput[pygame.K_ESCAPE]:
                 paused = False
             if keyInput[pygame.K_n]:
-                    newGame = True
-                    paused = False
+                newGame = True
+                paused = False
  
     gameFlags = [newGame, gameOver, paused, (not isOpen)]
 
@@ -157,7 +157,7 @@ while isOpen:
                 gameOver = False
                 isOpen = False
             keyInput = pygame.key.get_pressed()
-            if keyInput[pygame.K_n]:
+            if keyInput[pygame.K_n] or keyInput[pygame.K_ESCAPE]:
                 newGame = True
                 gameOver = False
            
