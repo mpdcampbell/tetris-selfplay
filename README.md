@@ -22,4 +22,26 @@ Written in python, uses the pygame module, and text is displayed in the font [Fa
 | N             | New Game             |
 
  ## How to Run
-  - Instructions here
+ 
+ ## Requirements To Run
+  - Python 3 *(only tested with version 3.9.2)*
+  - Pygame module *(lonly tested with version 2.0.1)*
+
+  #### Windows
+  The latest version of python can be found [here](https://www.python.org/downloads/windows/), last tested version [here](https://www.python.org/downloads/release/python-392/). Choose the *Windows Installer (64 bit)* to ensure the pip tool is also installed. Then, to install the pygame module, open command prompt and enter the following:
+  pip install pygame
+
+  With above installed, to run the program download this repo, either by git clone or manually downloading the zip and extracting. Open command prompt, navigate to the tetris-selfplay directory and enter the following:
+  python main.py
+
+ #### Ubuntu
+  Python3 comes installed by default starting from Ubuntu 20.04. 
+  To install the pygame module open terminal and enter the following command:
+  sudo apt install python3-pygame
+
+  With above installed, download this repo. Either by git clone or manually downloading the zip and extracting. Open terminal, navigate to the tetris-selfplay directory and enter the following:
+  python3 main.py
+
+
+
+
