@@ -15,7 +15,7 @@ selfPlay = False
 locked = False
 
 #Create game window and clock
-window = Window(6)
+window = Window()
 draw = Draw(window)
 draw.createScreen()
 clock = pygame.time.Clock()
