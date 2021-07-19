@@ -5,7 +5,7 @@ Written in python, uses the pygame module, and text is displayed in the font [Fa
 
 ## **Example Gameplay**
 <p align="Left">
-<img align="center" src="/examples/gameplay.gif" alt="My awful tetris gameplay" title="My awful tetris gameplay" width="500"><br \>
+<img align="center" src="/examples/menus.gif" alt="Demo of game modes" title="Game Modes" width="500"><br \>
 </p>
 
 ## **Controls** 
