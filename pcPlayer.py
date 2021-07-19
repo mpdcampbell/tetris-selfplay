@@ -14,12 +14,11 @@ class PcPlayer:
             dictRow = {rotationCount : copy.copy(self.emptyRow)}
             self.positionScores.update(dictRow)
 
-    def __init__(self, board, holeWeight = 3, heightWeight = 7, columnWeight = 6):
+    def __init__(self, board, holeWeight = 3, heightWeight = 9, columnWeight = 5):
         self.holeWeight = holeWeight
         self.heightWeight = heightWeight
         self.columnWeight = columnWeight
         self.columnHeightLimit = 3
-        self.holeStandard = 10
         self.clearPositionScores(board)
 
     def moveFarLeft(self, board, tetromino):
