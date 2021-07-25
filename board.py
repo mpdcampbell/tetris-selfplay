@@ -124,7 +124,6 @@ class Board:
                     self.grid[i] = copy.deepcopy(self.grid[i-1])
                 y += 1
             y-=1
-        #This would occur if none of rows are empty or filled
         return fullRowCount
          
     def rotatePiece(self, tetromino, rotation = None, count = 1):

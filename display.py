@@ -20,12 +20,13 @@ class Window:
                 if blockSize < 6:
                     print("blockSize minimum is 6 because of smallest window limitations")
                     self.blockSize = 6
-                else:
-                    self.blockSize = blockSize
+                else: 
+                    self.blockSize = blockSize - int(blockSize % 2)
                 self.width = 20 * self.blockSize
                 self.height = 21 * self.blockSize
             else:
                 print("blockSize value provided is not an int, using default value")
+                self.setDefaultDimensions()
         else:
             self.setDefaultDimensions()
 
@@ -42,7 +43,7 @@ class Draw:
         self.pieceOutline = (self.window.blockSize // 15) if (self.window.blockSize >= 15) else 1
         self.boardRect = pygame.Rect(self.boardXOffset*self.window.blockSize, 0, (self.boardWidth*self.window.blockSize) + self.boardOutline, self.window.height)
         self.heldRect = pygame.Rect(self.heldXOffset*self.window.blockSize, self.heldYOffset*self.window.blockSize, self.heldWidth*self.window.blockSize, self.heldWidth*self.window.blockSize)
-        self.fontColour = (125, 125, 125)
+        self.fontColour = (125, 125, 125) #Grey
         self.fontPath = "font/Fairfax.ttf"
 
     def createScreen(self):

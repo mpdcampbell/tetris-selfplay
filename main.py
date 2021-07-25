@@ -125,7 +125,7 @@ while isOpen:
                 if keyInput[pygame.K_UP]:
                     board.rotatePiece(tetromino, Rotation.CLOCKWISE)
                 if keyInput[pygame.K_RIGHT]:
-                    board.moveOrLockPiece(tetromino, Direction.RIGHT, 1)
+                    board.moveOrLockPiece(tetromino, Direction.RIGHT)
                 if keyInput[pygame.K_LEFT]:
                     board.moveOrLockPiece(tetromino, Direction.LEFT)
                 if keyInput[pygame.K_DOWN]:

@@ -31,7 +31,6 @@ class Tetromino():
             self.shape = shape
         else:
             self.shape = random.choice(list(self._allShapes.keys()))
-
         self.vertexCoords = copy.deepcopy(self._allShapes[self.shape][0])
         self.blockCoords = copy.deepcopy(self._allShapes[self.shape][1])
         self.centre = copy.copy(self._allShapes[self.shape][2])
@@ -97,5 +96,5 @@ class Tetromino():
                     y = coord[1] - self.centre[1]
                     coord[1] = self.centre[1] + (direction * x)
                     coord[0] = self.centre[0] - (direction * y)
-                     #This line is needed to adjust so the block coord is always top left coord of "block"
+                    #This line is needed to adjust so the block coord is always top left coord of "block"
                     coord[int((1 - direction)/2)] += -1
