@@ -44,17 +44,34 @@ Written in python, uses the pygame module, and text is displayed in the font [Fa
   python main.py
   ```
   #### Ubuntu 20.04
-  Python 3.8.2 comes installed by default starting from Ubuntu 20.04. 
-  To install the pygame module open terminal and enter the following:
+  Python 3.8.2 comes installed by default starting from Ubuntu 20.04.<br/> 
+  To install the pygame module open terminal and enter the following in turn:
   ```
+  sudo apt update
   sudo apt install python3-pygame
   ```
-  With above installed, download this repo. Either by git clone or manually downloading the zip and extracting. Then open terminal, navigate to the tetris-selfplay directory and enter the following:
+  With above installed, download this repo. Either by git clone or manually downloading the zip and extracting.<br/>
+  Then open terminal, navigate to the tetris-selfplay directory and enter the following:
   ```
   python3 main.py
   ```
   #### Ubuntu 16.04 or 18.04
-  The latest version of python available in the official ubuntu repositorys is older than the 3.7.7 version required for the pygame module.
-  But you can install the latest python versions by adding the deadsnakes PPA.
-  Instructions found [here](https://tecadmin.net/how-to-install-python-3-9-on-ubuntu-18-04/)
-  Once installed, follow the comamnds as for Ubuntu 20.04 above to add the pygame module and run the tetris-selfplay code.
+  The latest version of python available in the official ubuntu repositorys is older than the 3.7.7 version required for the pygame module.<br/>
+  But you can install the latest python versions by adding the [deadsnakes PPA](https://launchpad.net/~deadsnakes).<br/>
+  Open terminal and enter the following in turn:
+  ```
+  sudo apt install software-properties-common
+  sudo add-apt-repository ppa:deadsnakes/ppa
+  sudo apt update 
+  sudo apt install python3.9
+  ```
+  Now python 3.9 is installed, you can install pygame using pip.
+  ```
+  sudo apt install python3-pip
+  sudo pip install pygame
+  ```
+  Now the requisites are installed, download this repo. Either by git clone or manually downloading the zip and extracting.<br/>
+  Then open terminal, navigate to the tetris-selfplay directory and enter the following:
+  ```
+  python3.9 main.py
+  ```
