@@ -56,7 +56,7 @@ Written in python, uses the pygame module, and text is displayed in the font [Fa
   python3 main.py
   ```
   #### Ubuntu 16.04 or 18.04
-  The latest version of python available in the official ubuntu repositorys is older than the 3.7.7 version required for the pygame module.<br/>
+  The latest version of python available in the official Ubuntu repositories is older than the 3.7.7 version required for the pygame module.<br/>
   But you can install the latest python versions by adding the [deadsnakes PPA](https://launchpad.net/~deadsnakes).<br/>
   Open terminal and enter the following in turn:
   ```
@@ -70,7 +70,7 @@ Written in python, uses the pygame module, and text is displayed in the font [Fa
   sudo apt install python3-pip
   sudo pip install pygame
   ```
-  Now the requisites are installed, download this repo. Either by git clone or manually downloading the zip and extracting.<br/>
+  With above installed, download this repo. Either by git clone or manually downloading the zip and extracting.<br/>
   Then open terminal, navigate to the tetris-selfplay directory and enter the following:
   ```
   python3.9 main.py
