@@ -8,8 +8,8 @@ Written in python, uses the pygame module, and text is displayed in the font [Fa
 <img align="center" src="/examples/gameplay.gif" alt="Demo of game modes" title="Game Modes" width="380"><br \>
 </p>
 
-## **Controls** 
-| Input         | Action               |
+## **Controls and Scoring** 
+| Input         | Action               | 
 | ------------- | -------------------- |
 | Left Arrow    | Move Left            |
 | Right Arrow   | Move Right           |
@@ -21,6 +21,13 @@ Written in python, uses the pygame module, and text is displayed in the font [Fa
 | ESC           | Pause / Unpause      |
 | N             | New Game             |
 
+| Lines Cleared | Score |
+| ------------- | ----- |
+| 1             | 1     |
+| 2             | 3     |
+| 3             | 5     |
+| 4             | 8     |
+
  ## How to Run
  
  ### Requirements To Run
@@ -28,7 +35,7 @@ Written in python, uses the pygame module, and text is displayed in the font [Fa
   - Pygame module *(tested with version 2.0.1)*
 
   #### Windows
-  The latest version of python can be found [here](https://www.python.org/downloads/windows/), last tested version [here](https://www.python.org/downloads/release/python-392/). Choose the *Windows Installer (64 bit)* to ensure the pip tool is also installed. Then, to install the pygame module, open command prompt and enter the following:
+  The latest version of python can be found [here](https://www.python.org/downloads/windows/). Choose the *Windows Installer (64 bit)* to ensure the pip tool is also installed. Then, to install the pygame module, open command prompt and enter the following:
   ```
   pip install pygame
   ```
@@ -36,8 +43,8 @@ Written in python, uses the pygame module, and text is displayed in the font [Fa
   ```
   python main.py
   ```
- #### Ubuntu
-  Python3 comes installed by default starting from Ubuntu 20.04. 
+  #### Ubuntu 20.04
+  Python 3.8.2 comes installed by default starting from Ubuntu 20.04. 
   To install the pygame module open terminal and enter the following:
   ```
   sudo apt install python3-pygame
@@ -46,6 +53,8 @@ Written in python, uses the pygame module, and text is displayed in the font [Fa
   ```
   python3 main.py
   ```
-
-
-
+  #### Ubuntu 16.04 or 18.04
+  The latest version of python available in the official ubuntu repositorys is older than the 3.7.7 version required for the pygame module.
+  But you can install the latest python versions by adding the deadsnakes PPA.
+  Instructions found [here](https://tecadmin.net/how-to-install-python-3-9-on-ubuntu-18-04/)
+  Once installed, follow the comamnds as for Ubuntu 20.04 above to add the pygame module and run the tetris-selfplay code.
