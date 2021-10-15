@@ -35,7 +35,7 @@ Written in python, uses the pygame module, and text is displayed in the font [Fa
   - Pygame module *(tested with version 2.0.1)*
 
   #### Windows
-  The latest version of python can be found [here](https://www.python.org/downloads/windows/). Choose the *Windows Installer (64 bit)* to ensure the pip tool is also installed. Then, to install the pygame module, open command prompt and enter the following:
+  The latest version of python can be found [here](https://www.python.org/downloads/windows/). Choose the *Windows Installer (64 bit)*  and make sure to tick *Add Python to path*. Then to install the pygame module, open command prompt and enter the following:
   ```
   pip install pygame
   ```
